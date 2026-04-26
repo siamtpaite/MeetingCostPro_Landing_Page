@@ -116,6 +116,35 @@
     }
     .cta-note strong { color: var(--text-main); }
 
+    /* Platform badges */
+    .platforms {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #1e2533;
+    }
+    .platforms p {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 0 0 14px 0;
+    }
+    .platform-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .badge {
+      background: #1e2533;
+      border: 1px solid #2a3347;
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
     .section {
       padding: 56px 5%;
       max-width: 960px;
@@ -181,6 +210,14 @@
       background: rgba(74, 222, 128, 0.06);
       color: var(--text-main);
     }
+    table.compare .check {
+      color: var(--accent);
+      font-weight: 700;
+    }
+    table.compare .cross {
+      color: #ef4444;
+      font-weight: 700;
+    }
 
     .sovereign {
       text-align: center;
@@ -208,6 +245,7 @@
       margin: 0 auto 28px auto;
     }
 
+    /* Feature grid — expanded */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -221,16 +259,74 @@
       padding: 28px;
       border-radius: 12px;
       border: 1px solid #2a2f3a;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      border-color: #3d4f6b;
+      transform: translateY(-2px);
+    }
+    .feature-card .icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      display: block;
     }
     .feature-card h3 {
       color: white;
       margin: 0 0 10px 0;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
     }
     .feature-card p {
       color: var(--text-muted);
       margin: 0;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    /* PRO badge */
+    .pro-tag {
+      display: inline-block;
+      background: linear-gradient(90deg, #4ade80, #38bdf8);
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* Stats row */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border: 1px solid #2a2f3a;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 48px 5%;
+      max-width: 960px;
+    }
+    .stat {
+      flex: 1;
+      min-width: 160px;
+      padding: 32px 24px;
+      text-align: center;
+      border-right: 1px solid #2a2f3a;
+      background: var(--bg-card);
+    }
+    .stat:last-child { border-right: none; }
+    .stat .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+    }
+    .stat .label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
     }
 
     footer {
@@ -252,6 +348,8 @@
       .nav-links { margin-top: 10px; }
       .nav-links a { margin: 0 10px; }
       .hero { padding-top: 72px; }
+      .stat { border-right: none; border-bottom: 1px solid #2a2f3a; }
+      .stat:last-child { border-bottom: none; }
     }
   </style>
 </head>
@@ -269,24 +367,137 @@
     <section class="hero">
       <p class="eyebrow">The new way to manage meeting costs</p>
       <h1>Stop the bleed. Price the room.</h1>
-      <p class="sub">MeetingCost is a sovereign browser extension that turns every call into a live balance sheet—so your team feels the cost of “just five more minutes” before it hits your runway.</p>
+      <p class="sub">MeetingCost is a sovereign browser extension that turns every call into a live balance sheet—so your team feels the cost of "just five more minutes" before it hits your runway.</p>
       <div class="hero-ctas">
         <a href="#" class="cta-btn">Get MeetingCost — $19.99</a>
         <a href="#" class="cta-btn crypto">Pay with USDT — $15.99 (20% off)</a>
       </div>
       <p class="cta-note"><strong>Permanent license.</strong> No subscription treadmill. Stablecoin checkout lives inside the extension.</p>
+
+      <div class="platforms">
+        <p>Works on every major meeting platform</p>
+        <div class="platform-badges">
+          <span class="badge">Google Meet</span>
+          <span class="badge">Zoom</span>
+          <span class="badge">Microsoft Teams</span>
+          <span class="badge">Webex</span>
+          <span class="badge">RingCentral</span>
+        </div>
+      </div>
     </section>
+
+    <!-- Stats row -->
+    <div class="stats">
+      <div class="stat">
+        <span class="num">$0</span>
+        <span class="label">Recurring fees. Ever.</span>
+      </div>
+      <div class="stat">
+        <span class="num">5</span>
+        <span class="label">Meeting platforms supported</span>
+      </div>
+      <div class="stat">
+        <span class="num">6</span>
+        <span class="label">AI transcription providers</span>
+      </div>
+      <div class="stat">
+        <span class="num">100%</span>
+        <span class="label">Local-first data storage</span>
+      </div>
+    </div>
 
     <section class="section problem">
       <h2>Your calendar is a budget leak.</h2>
-      <p class="lead">Traditional SaaS Tools turned collaboration into a subscription buffet: more seats, more “AI add-ons,” more middlemen—and meetings became the default way to look busy while burning cash.</p>
+      <p class="lead">Traditional SaaS Tools turned collaboration into a subscription buffet: more seats, more "AI add-ons," more middlemen—and meetings became the default way to look busy while burning cash.</p>
       <ul>
         <li><strong>Expensive meetings, invisible math.</strong> Salaries keep compounding while nobody sees the meter running.</li>
         <li><strong>Bloated stacks, fragile ROI.</strong> You pay for platforms that own your workflow, your data trail, and your renewal calendar.</li>
-        <li><strong>Privacy traded for convenience.</strong> Central dashboards mean central risk—your transcripts and metadata shouldn’t be someone else’s product surface.</li>
+        <li><strong>Privacy traded for convenience.</strong> Central dashboards mean central risk—your transcripts and metadata shouldn't be someone else's product surface.</li>
+        <li><strong>Alerts only after the damage.</strong> Most tools tell you a meeting was expensive after it's over—not while the clock is still ticking.</li>
       </ul>
     </section>
 
+    <!-- Comparison table — vs specific competitors -->
+    <section class="section">
+      <h2>MeetingCost vs. the rest of the stack</h2>
+      <p class="lead">Otter.ai, Clockwise, Reclaim, Notion Calendar—great tools, different jobs. None of them put a live dollar clock in the room. None of them let you pay once and own it.</p>
+      <div class="compare-wrap">
+        <table class="compare" role="table" aria-label="MeetingCost feature comparison">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Otter.ai / Fireflies</th>
+              <th scope="col">Clockwise / Reclaim</th>
+              <th scope="col">MeetingCost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Live cost ticker during call</th>
+              <td class="trad"><span class="cross">✗</span> Not available</td>
+              <td class="trad"><span class="cross">✗</span> Not available</td>
+              <td class="mc"><span class="check">✓</span> Real-time dollar clock on-screen</td>
+            </tr>
+            <tr>
+              <th scope="row">Pricing model</th>
+              <td class="trad">Monthly/annual subscription per seat</td>
+              <td class="trad">Monthly/annual subscription per seat</td>
+              <td class="mc"><strong>$19.99 one-time</strong> — or $15.99 with USDT</td>
+            </tr>
+            <tr>
+              <th scope="row">AI transcription</th>
+              <td class="trad">Bundled at marked-up rates, vendor-controlled</td>
+              <td class="trad"><span class="cross">✗</span> Not a focus</td>
+              <td class="mc"><span class="check">✓</span> BYOK — AssemblyAI, OpenAI, Deepgram, Google, HuggingFace, Rev.ai</td>
+            </tr>
+            <tr>
+              <th scope="row">Meeting cost analytics</th>
+              <td class="trad">Transcript analytics only</td>
+              <td class="trad">Scheduling efficiency, not cost</td>
+              <td class="mc"><span class="check">✓</span> Full PRO dashboard — trends, ROI, yearly budget, YTD projections</td>
+            </tr>
+            <tr>
+              <th scope="row">Department / cost center tagging</th>
+              <td class="trad"><span class="cross">✗</span></td>
+              <td class="trad"><span class="cross">✗</span></td>
+              <td class="mc"><span class="check">✓</span> Tag meetings by team or department</td>
+            </tr>
+            <tr>
+              <th scope="row">Slack / Teams webhook alerts</th>
+              <td class="trad">Transcript delivery only</td>
+              <td class="trad">Calendar alerts only</td>
+              <td class="mc"><span class="check">✓</span> Budget threshold alerts to Slack or Teams</td>
+            </tr>
+            <tr>
+              <th scope="row">Export options</th>
+              <td class="trad">Transcript export</td>
+              <td class="trad">Calendar export</td>
+              <td class="mc"><span class="check">✓</span> CSV, PDF, Google Sheets, JSON</td>
+            </tr>
+            <tr>
+              <th scope="row">Calendar cost forecasting</th>
+              <td class="trad"><span class="cross">✗</span></td>
+              <td class="trad">Time optimization only</td>
+              <td class="mc"><span class="check">✓</span> Upcoming meeting cost preview from Google Calendar</td>
+            </tr>
+            <tr>
+              <th scope="row">Data privacy</th>
+              <td class="trad">Stored in vendor cloud by default</td>
+              <td class="trad">Stored in vendor cloud by default</td>
+              <td class="mc"><span class="check">✓</span> 100% local-first — nothing leaves your device unless you export</td>
+            </tr>
+            <tr>
+              <th scope="row">Crypto / sovereign payment</th>
+              <td class="trad"><span class="cross">✗</span></td>
+              <td class="trad"><span class="cross">✗</span></td>
+              <td class="mc"><span class="check">✓</span> On-chain USDT checkout built into the extension</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Traditional SaaS comparison (kept from original) -->
     <section class="section">
       <h2>Traditional SaaS Tools vs MeetingCost</h2>
       <p class="lead">Same meeting economy. Different rules: local-first control, wholesale AI, and payments without the toll booth.</p>
@@ -302,7 +513,7 @@
           <tbody>
             <tr>
               <th scope="row">Pricing model</th>
-              <td class="trad">Per-seat subscriptions, bundled “suites,” and surprise renewals that scale faster than headcount.</td>
+              <td class="trad">Per-seat subscriptions, bundled "suites," and surprise renewals that scale faster than headcount.</td>
               <td class="mc">One-time license: <strong>$19.99</strong> standard, or <strong>$15.99</strong> when you pay with stablecoins (USDT)—no recurring rent on your calendar.</td>
             </tr>
             <tr>
@@ -317,18 +528,28 @@
             </tr>
             <tr>
               <th scope="row">Meeting cost visibility</th>
-              <td class="trad">Dashboards after the fact—if you’re lucky—buried under notifications and noise.</td>
+              <td class="trad">Dashboards after the fact—if you're lucky—buried under notifications and noise.</td>
               <td class="mc">The <strong>Awkward Reality Tracker</strong>: a live dollar clock during the call so time-wasting dies from transparency, not nagging.</td>
             </tr>
             <tr>
               <th scope="row">Calendar intelligence</th>
               <td class="trad">Another integration tax: connect, consent, configure—then maintain permissions as IT policy shifts.</td>
-              <td class="mc"><strong>Google Calendar sync</strong> so the room roster and burn rate update without turning setup into a project.</td>
+              <td class="mc"><strong>Google Calendar sync</strong> with upcoming meeting cost forecasting—see what next week costs before it happens.</td>
             </tr>
             <tr>
               <th scope="row">AI economics</th>
-              <td class="trad">Vendor-marked-up “AI minutes” bundled into plans you didn’t ask for.</td>
-              <td class="mc">Optional AI summaries on <strong>wholesale infrastructure</strong>—Gemini / AssemblyAI—via your keys, your rates.</td>
+              <td class="trad">Vendor-marked-up "AI minutes" bundled into plans you didn't ask for.</td>
+              <td class="mc">Optional AI summaries on <strong>wholesale infrastructure</strong>—AssemblyAI, OpenAI, Deepgram, Google, HuggingFace, Rev.ai—via your keys, your rates.</td>
+            </tr>
+            <tr>
+              <th scope="row">Alerts &amp; integrations</th>
+              <td class="trad">Notifications inside the platform only—another tab to check.</td>
+              <td class="mc"><strong>Slack &amp; Teams webhooks</strong>: push cost alerts directly to your team channels when a meeting exceeds budget.</td>
+            </tr>
+            <tr>
+              <th scope="row">Reporting</th>
+              <td class="trad">Locked dashboards, vendor-formatted exports, no raw data access.</td>
+              <td class="mc">Export as <strong>CSV, PDF, Google Sheets, or JSON</strong>. Your data, your format, no hoops.</td>
             </tr>
           </tbody>
         </table>
@@ -336,33 +557,68 @@
     </section>
 
     <section class="section sovereign" id="sovereign-pay">
-      <h2>Sovereign pay isn’t a stunt—it’s leverage.</h2>
-      <p class="lead">Stablecoins aren’t “crypto culture.” They’re a straight line between buyer and builder—no processor drama, no platform ransom, no “we updated our terms” email at midnight.</p>
-      <p>When you pay with USDT inside MeetingCost, you skip the <strong>Middleman Tax</strong>: fewer hands in the transaction, fewer failure points, and a license that unlocks instantly on your terms. You’re not renting access to your own productivity—you’re buying a tool that stays yours.</p>
+      <h2>Sovereign pay isn't a stunt—it's leverage.</h2>
+      <p class="lead">Stablecoins aren't "crypto culture." They're a straight line between buyer and builder—no processor drama, no platform ransom, no "we updated our terms" email at midnight.</p>
+      <p>When you pay with USDT inside MeetingCost, you skip the <strong>Middleman Tax</strong>: fewer hands in the transaction, fewer failure points, and a license that unlocks instantly on your terms. You're not renting access to your own productivity—you're buying a tool that stays yours.</p>
     </section>
 
+    <!-- Full feature grid -->
     <section class="features" aria-label="Core capabilities">
       <div class="feature-card">
+        <span class="icon">⏱</span>
         <h3>Awkward Reality Tracker</h3>
-        <p>Real-time financial cost on-screen while the meeting runs—efficiency through honest arithmetic.</p>
+        <p>Real-time financial cost on-screen while the meeting runs—efficiency through honest arithmetic. Works across Google Meet, Zoom, Teams, Webex, and RingCentral.</p>
       </div>
       <div class="feature-card">
+        <span class="icon">📊</span>
+        <h3>PRO Analytics Dashboard <span class="pro-tag">PRO</span></h3>
+        <p>Monthly cost trends, meeting ROI analysis, yearly budget tracking, YTD projections, and department breakdowns—everything in one local dashboard.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🤖</span>
+        <h3>AI Transcription &amp; Feedback <span class="pro-tag">PRO</span></h3>
+        <p>Bring your own API key for AssemblyAI, OpenAI, Deepgram, Google, HuggingFace, or Rev.ai. Get AI-generated meeting summaries and cost-reduction recommendations.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📅</span>
+        <h3>Calendar Cost Forecasting <span class="pro-tag">PRO</span></h3>
+        <p>Google Calendar integration previews upcoming meeting costs before they happen—so you can cut the expensive ones before they start.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🏷</span>
+        <h3>Department Tagging <span class="pro-tag">PRO</span></h3>
+        <p>Tag meetings by department or cost center. See exactly which teams are burning the most in meetings and where to focus efficiency efforts.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🔔</span>
+        <h3>Slack &amp; Teams Alerts <span class="pro-tag">PRO</span></h3>
+        <p>Set budget thresholds and receive automatic webhook alerts in your Slack or Teams channels when a meeting exceeds the limit.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📤</span>
+        <h3>Flexible Exports <span class="pro-tag">PRO</span></h3>
+        <p>Export meeting history as CSV, PDF, Google Sheets, or raw JSON. Your data stays yours—no proprietary lock-in.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">📋</span>
+        <h3>Meeting Templates</h3>
+        <p>Save reusable participant and rate configurations for recurring meetings. One click to load your standup, all-hands, or client call setup.</p>
+      </div>
+      <div class="feature-card">
+        <span class="icon">🔐</span>
         <h3>Local-first + BYOK</h3>
-        <p>No centralized data warehouse. Plug in Gemini or AssemblyAI keys and keep AI spend at wholesale.</p>
-      </div>
-      <div class="feature-card">
-        <h3>Calendar-aware math</h3>
-        <p>Google Calendar sync knows who’s in the room so burn rate updates without manual babysitting.</p>
+        <p>No centralized data warehouse. All meeting history, transcripts, and analytics stay on your device. Bring your own AI keys and keep spend at wholesale rates.</p>
       </div>
     </section>
 
     <section class="final-cta">
       <h2>Install MeetingCost. Make silence expensive again.</h2>
-      <p>The meeting economy won’t shrink—but you can make it honest: local control, live cost pressure, and checkout that doesn’t owe allegiance to anyone but you.</p>
+      <p>The meeting economy won't shrink—but you can make it honest: local control, live cost pressure, AI on your terms, and checkout that doesn't owe allegiance to anyone but you.</p>
       <div class="hero-ctas">
         <a href="#" class="cta-btn">Add to Chrome — $19.99</a>
         <a href="#" class="cta-btn crypto">USDT checkout — save 20%</a>
       </div>
+      <p class="cta-note" style="margin-top:20px;"><strong>Permanent license.</strong> Works on Google Meet, Zoom, Teams, Webex &amp; RingCentral.</p>
     </section>
   </main>
 

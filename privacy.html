@@ -13,64 +13,109 @@
 </head>
 <body>
   <h1>MeetingCost Privacy Policy</h1>
-  <p><strong>Last updated:</strong> April 7, 2026</p>
+  <p><strong>Last updated:</strong> April 26, 2026</p>
   <p>
-    MeetingCost is a browser extension that estimates meeting cost and optional PRO features (analytics,
-    AI-assisted transcription, and calendar integration). This policy describes what data is processed, where
-    it stays, and what you control.
+    MeetingCost is a browser extension that estimates meeting cost in real time, with optional PRO features
+    including analytics, AI-assisted transcription, calendar integration, department tagging, Slack/Teams
+    webhook alerts, and data exports. This policy describes what data is processed, where it stays, and
+    what you control.
   </p>
 
   <h2>Data stored on your device</h2>
   <p>
     By default, participant names, salary or rate assumptions, currency, templates, meeting history entries,
-    and related settings are stored in <code>chrome.storage.local</code> in your browser profile. This data
-    does not leave your device except where you explicitly enable features that call external services (below).
+    department/cost-center tags, yearly budget settings, webhook configurations, and all related settings
+    are stored in <code>chrome.storage.local</code> in your browser profile. This data does not leave your
+    device except where you explicitly enable features that call external services (described below).
   </p>
 
   <h2>Meeting pages and metadata</h2>
   <p>
-    On supported meeting sites, a content script reads page signals (for example URL patterns and visible
-    controls) to detect when a call is active. It does not read passwords or unrelated site data. Overlay UI
-    is injected only on meeting origins listed in the extension manifest.
+    On supported meeting sites (Google Meet, Zoom, Microsoft Teams, Webex, RingCentral), a content script
+    reads page signals—for example URL patterns and visible controls—to detect when a call is active. It
+    does not read passwords, chat messages, or unrelated site data. Overlay UI is injected only on meeting
+    origins listed in the extension manifest.
   </p>
 
   <h2>Optional AI transcription and summarization</h2>
   <p>
-    If you use PRO AI features, audio may be captured from your meeting tab or a source you choose, then sent
-    to the third-party AI provider you select (for example AssemblyAI, OpenAI, or Deepgram) using an API key
-    you supply. The API key is held in the extension service worker memory for your current browser session only
-    and is not written to persistent extension storage. Transcripts and summaries are stored locally according
-    to your retention settings unless you export them yourself.
+    If you use PRO AI features, audio may be captured from your meeting tab or a source you choose, then
+    sent to the third-party AI provider you select using an API key you supply. Supported providers include
+    AssemblyAI, OpenAI, Deepgram, Google (Speech-to-Text / Gemini), HuggingFace, and Rev.ai. The API key
+    is held in the extension service worker memory for your current browser session only and is not written
+    to persistent extension storage. Transcripts and summaries are stored locally according to your
+    retention settings unless you export them yourself.
   </p>
 
   <h2>Google Calendar (read-only)</h2>
   <p>
-    If you connect Google Calendar, the extension requests read-only access to list upcoming events to show
-    in the dashboard. OAuth tokens are handled through Chrome’s identity APIs and provider endpoints; MeetingCost
-    does not sell this data.
+    If you connect Google Calendar, the extension requests read-only access to list upcoming events for
+    calendar cost forecasting displayed in the dashboard. OAuth tokens are handled through Chrome's identity
+    APIs and Google's provider endpoints. MeetingCost does not store calendar event content on any server
+    and does not sell this data.
+  </p>
+
+  <h2>Google Sheets export</h2>
+  <p>
+    If you use the Export to Google Sheets feature, the extension uses your Google OAuth session to write
+    meeting history data to a Google Sheet in your own Google Drive. MeetingCost does not store or transmit
+    this data to any MeetingCost server. The data goes directly from your device to your Google Drive via
+    Google's API.
+  </p>
+
+  <h2>Slack and Teams webhook alerts</h2>
+  <p>
+    If you configure a Slack or Microsoft Teams webhook URL, the extension will POST a cost alert message
+    to that URL when a meeting exceeds your configured budget threshold. The webhook URL is stored locally
+    in <code>chrome.storage.local</code>. Alert messages are sent via a Vercel proxy endpoint
+    (<code>meetingcost-success.vercel.app/api/send-webhook</code>) to avoid browser CORS restrictions.
+    Only the alert message content (meeting name, cost, duration) is transmitted — no personal data,
+    transcripts, or participant details are included unless you configure them in your alert template.
+  </p>
+
+  <h2>Department and cost center tagging</h2>
+  <p>
+    Department and cost center tags assigned to meetings are stored locally in <code>chrome.storage.local</code>
+    and used only for local analytics breakdowns in the PRO dashboard. They are not transmitted to any
+    external server unless you explicitly export your meeting history.
   </p>
 
   <h2>Payments and licensing</h2>
   <p>
-    Purchases may be processed by Gumroad, Plisio, or other providers you select. Those processors receive the
-    data required to complete payment (for example email for delivery). License verification may call a
-    configured HTTPS worker or Gumroad’s API. See each processor’s privacy policy for how they handle payment data.
+    Purchases may be processed by Gumroad or via independent on-chain USDT payment (Tron or other
+    supported networks). For Gumroad purchases, Gumroad receives the data required to complete payment
+    (for example your email address for license delivery). For on-chain USDT payments, the transaction
+    is recorded on the relevant blockchain network—no personal data is collected by MeetingCost beyond
+    the wallet address and transaction hash required for license verification. License verification calls
+    the MeetingCost Vercel endpoint (<code>meetingcost-success.vercel.app/api/verify-license</code>).
+    See each processor's privacy policy for how they handle payment data.
   </p>
 
   <h2>Firebase and cloud backup (optional)</h2>
   <p>
-    Optional cloud signup uses Firebase Authentication REST endpoints from the extension. Session tokens needed
-    for refresh are stored locally in <code>chrome.storage.local</code> under the Firebase auth key. No remote
-    Firebase JavaScript SDK is loaded from CDN in the shipped extension.
+    Optional cloud account creation uses Firebase Authentication REST endpoints from the extension.
+    If you create a cloud account, your license key and PRO status are backed up to Firebase Firestore
+    under your user ID to enable license restoration across devices. Session tokens needed for refresh
+    are stored locally in <code>chrome.storage.local</code>. No remote Firebase JavaScript SDK is
+    loaded from CDN in the shipped extension.
+  </p>
+
+  <h2>Data exports</h2>
+  <p>
+    You may export your meeting history as CSV, PDF, Google Sheets, or JSON. These exports are initiated
+    by you and go directly to your chosen destination (download, Google Drive). MeetingCost does not
+    retain a copy of exported data on any server.
   </p>
 
   <h2>Retention and deletion</h2>
   <ul>
-    <li>Clear meeting history, templates, or AI results from the extension UI or uninstall the extension to remove local data.</li>
-    <li>AI API keys in memory are cleared when the service worker restarts; use “Apply AI settings” again after a long idle period if needed.</li>
+    <li>Clear meeting history, templates, AI results, or department tags from the extension UI at any time.</li>
+    <li>Uninstalling the extension removes all locally stored data from <code>chrome.storage.local</code>.</li>
+    <li>AI API keys in memory are cleared when the service worker restarts. Use "Apply AI settings" again after a long idle period if needed.</li>
+    <li>To delete cloud backup data from Firebase, contact support or delete your cloud account from within the extension settings.</li>
   </ul>
 
-  <h2>Contact</h2>
-  <p>For privacy questions, contact the publisher email shown on the Chrome Web Store listing.</p>
+  <h2 id="contact">Contact</h2>
+  <p>For privacy questions, contact: <a href="mailto:siam_t_paite@icloud.com">siam_t_paite@icloud.com</a></p>
 </body>
 </html>
