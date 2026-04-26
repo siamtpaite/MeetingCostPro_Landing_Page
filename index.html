@@ -299,9 +299,8 @@
 
     /* Stats row */
     .stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       border: 1px solid #2a2f3a;
       border-radius: 12px;
       overflow: hidden;
@@ -309,8 +308,6 @@
       max-width: 960px;
     }
     .stat {
-      flex: 1;
-      min-width: 160px;
       padding: 32px 24px;
       text-align: center;
       border-right: 1px solid #2a2f3a;
@@ -327,6 +324,7 @@
       font-size: 0.82rem;
       color: var(--text-muted);
       margin-top: 4px;
+      display: block;
     }
 
     footer {
@@ -348,7 +346,9 @@
       .nav-links { margin-top: 10px; }
       .nav-links a { margin: 0 10px; }
       .hero { padding-top: 72px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
       .stat { border-right: none; border-bottom: 1px solid #2a2f3a; }
+      .stat:nth-child(odd) { border-right: 1px solid #2a2f3a; }
       .stat:last-child { border-bottom: none; }
     }
   </style>
@@ -369,10 +369,10 @@
       <h1>Stop the bleed. Price the room.</h1>
       <p class="sub">MeetingCost is a sovereign browser extension that turns every call into a live balance sheet—so your team feels the cost of "just five more minutes" before it hits your runway.</p>
       <div class="hero-ctas">
-        <a href="#" class="cta-btn">Get MeetingCost — $19.99</a>
-        <a href="#" class="cta-btn crypto">Pay with USDT — $15.99 (20% off)</a>
+        <a href="#" class="cta-btn">Get MeetingCost — $19.99/mo</a>
+        <a href="#" class="cta-btn crypto">Pay with USDT — $15.99/mo</a>
       </div>
-      <p class="cta-note"><strong>Permanent license.</strong> No subscription treadmill. Stablecoin checkout lives inside the extension.</p>
+      <p class="cta-note">Monthly · $19.99/mo or $15.99/mo USDT &nbsp;·&nbsp; Yearly · $199.99/yr or $159.99/yr USDT<br>Cancel anytime. Save 20% with USDT.</p>
 
       <div class="platforms">
         <p>Works on every major meeting platform</p>
@@ -390,7 +390,7 @@
     <div class="stats">
       <div class="stat">
         <span class="num">$0</span>
-        <span class="label">Recurring fees. Ever.</span>
+        <span class="label">Subscription setup fee. Ever.</span>
       </div>
       <div class="stat">
         <span class="num">5</span>
@@ -442,7 +442,7 @@
               <th scope="row">Pricing model</th>
               <td class="trad">Monthly/annual subscription per seat</td>
               <td class="trad">Monthly/annual subscription per seat</td>
-              <td class="mc"><strong>$19.99 one-time</strong> — or $15.99 with USDT</td>
+              <td class="mc"><strong>$19.99/month or $199.99/year</strong> — save 20% with USDT ($15.99/mo · $159.99/yr). No per-seat pricing.</td>
             </tr>
             <tr>
               <th scope="row">AI transcription</th>
@@ -615,10 +615,10 @@
       <h2>Install MeetingCost. Make silence expensive again.</h2>
       <p>The meeting economy won't shrink—but you can make it honest: local control, live cost pressure, AI on your terms, and checkout that doesn't owe allegiance to anyone but you.</p>
       <div class="hero-ctas">
-        <a href="#" class="cta-btn">Add to Chrome — $19.99</a>
-        <a href="#" class="cta-btn crypto">USDT checkout — save 20%</a>
+        <a href="#" class="cta-btn">Get MeetingCost — $19.99/mo</a>
+        <a href="#" class="cta-btn crypto">Pay with USDT — $15.99/mo</a>
       </div>
-      <p class="cta-note" style="margin-top:20px;"><strong>Permanent license.</strong> Works on Google Meet, Zoom, Teams, Webex &amp; RingCentral.</p>
+      <p class="cta-note" style="margin-top:20px;">Cancel anytime. Save 20% with USDT. Works on Google Meet, Zoom, Teams, Webex &amp; RingCentral.</p>
     </section>
   </main>
 
