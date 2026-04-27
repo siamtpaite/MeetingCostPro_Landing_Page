@@ -13,7 +13,7 @@
 </head>
 <body>
   <h1>MeetingCost Privacy Policy</h1>
-  <p><strong>Last updated:</strong> April 26, 2026</p>
+  <p><strong>Last updated:</strong> April 27, 2026</p>
   <p>
     MeetingCost is a browser extension that estimates meeting cost in real time, with optional PRO features
     including analytics, AI-assisted transcription, calendar integration, department tagging, Slack/Teams
@@ -91,13 +91,22 @@
     See each processor's privacy policy for how they handle payment data.
   </p>
 
-  <h2>Firebase and cloud backup (optional)</h2>
+  <h2>Firebase and cloud backup</h2>
   <p>
-    Optional cloud account creation uses Firebase Authentication REST endpoints from the extension.
-    If you create a cloud account, your license key and PRO status are backed up to Firebase Firestore
-    under your user ID to enable license restoration across devices. Session tokens needed for refresh
-    are stored locally in <code>chrome.storage.local</code>. No remote Firebase JavaScript SDK is
-    loaded from CDN in the shipped extension.
+    MeetingCost uses Firebase Authentication and Firebase Firestore to provide cross-device sync for
+    signed-in users. The following data is stored in Firestore under your user ID:
+  </p>
+  <ul>
+    <li>Meeting history (up to 500 meetings) — cost, duration, transcript, AI summary, AI feedback, department tag</li>
+    <li>Meeting templates — participant names, roles, and rate configurations</li>
+    <li>Dashboard settings — yearly budget, webhook URL and threshold, currency, overhead multiplier</li>
+  </ul>
+  <p>
+    This data is scoped strictly to your user ID and is not accessible by other users.
+    API keys you enter for AI transcription providers are never stored in Firestore — they remain
+    in local extension memory only for your current session.
+    Session tokens needed for refresh are stored locally in <code>chrome.storage.local</code>.
+    No remote Firebase JavaScript SDK is loaded from CDN in the shipped extension.
   </p>
 
   <h2>Data exports</h2>
