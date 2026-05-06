@@ -1,0 +1,42 @@
+/**
+ * MeetingCost global typography — Noto Sans Mono (Thin default + full weights).
+ * Self-hosted for extension CSP (font-src 'self').
+ */
+
+@font-face {
+  font-family: "Noto Sans Mono";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url("fonts/NotoSansMono-Thin.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/NotoSansMono-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/NotoSansMono-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Noto Sans Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/NotoSansMono-Bold.ttf") format("truetype");
+}
+
+html,
+body {
+  font-family: "Noto Sans Mono", ui-monospace, monospace;
+  font-weight: 100;
+}
