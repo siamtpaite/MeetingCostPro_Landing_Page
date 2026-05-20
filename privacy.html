@@ -6,21 +6,162 @@
   <title>MeetingCost — Privacy Policy</title>
   <link rel="stylesheet" href="meetingcost-fonts.css" />
   <style>
-    body { font-family: inherit; line-height: 1.5; max-width: 720px; margin: 24px auto; padding: 0 16px; color: #111; }
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.15rem; margin-top: 1.5rem; }
-    ul { padding-left: 1.25rem; }
+    :root {
+      --bg-main: #0f1115;
+      --bg-card: #171a21;
+      --accent: #4ade80;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      font-family: inherit;
+      background-color: #0f1115;
+      color: #f8fafc;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      border-bottom: 1px solid #334155;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+
+    .content {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .content h1 {
+      font-size: 1.8rem;
+      color: var(--text-main);
+    }
+    .content h2 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-top: 1.5rem;
+    }
+    .content ul {
+      padding-left: 1.25rem;
+    }
+    .content p,
+    .content li {
+      color: #cbd5e1;
+    }
+    .content a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .content a:hover {
+      text-decoration: underline;
+    }
+    .content code {
+      background: #1e2330;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #94a3b8;
+      font-size: 0.9em;
+    }
+
+    .google-box {
+      background: #171a21;
+      border-left: 4px solid #38bdf8;
+      padding: 16px 20px;
+      border-radius: 4px;
+      margin: 24px 0;
+    }
+    .google-box h2 {
+      margin-top: 0;
+      color: #38bdf8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      border-top: 1px solid #334155;
+    }
+    footer .footer-links { margin-top: 16px; }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 15px;
+    }
+    footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links { margin-top: 10px; }
+      .nav-links a { margin-left: 0; margin: 0 10px; }
+    }
   </style>
 </head>
 <body>
+
+  <nav>
+    <a href="/" class="logo">MeetingCost</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+    </div>
+  </nav>
+
+  <div class="content">
   <h1>MeetingCost Privacy Policy</h1>
-  <p><strong>Last updated:</strong> May 1, 2026</p>
+  <p><strong>Last updated:</strong> May 2, 2026</p>
   <p>
     MeetingCost is a browser extension that estimates meeting cost in real time, with optional PRO features
     including analytics, AI-assisted transcription, calendar integration, department tagging, Slack/Teams
     webhook alerts, and data exports. This policy describes what data is processed, where it stays, and
     what you control.
   </p>
+
+  <div class="google-box">
+    <h2>Google User Data — Full Disclosure</h2>
+    <p>MeetingCost accesses Google user data only through two optional, user-initiated features: Google Calendar integration and Google Sheets export. The following disclosures apply to both.</p>
+
+    <p><strong>1. Data Accessed</strong><br>
+    Google Calendar (read-only): event titles, start/end times, attendee counts, and meeting URLs for upcoming calendar events. Google Sheets: write access to create or append rows in a Google Sheet you designate, containing meeting history data (cost, duration, participant count, department tag).</p>
+
+    <p><strong>2. Data Usage</strong><br>
+    Calendar data is used solely to calculate and display upcoming meeting cost forecasts in the PRO dashboard. It is never used for advertising, profiling, or any purpose beyond this single feature. Google Sheets data is written directly to your own Google Drive on your explicit request — it is used only to fulfil the export you initiated.</p>
+
+    <p><strong>3. Data Sharing</strong><br>
+    Google user data is never sold, rented, shared, or transferred to any third party. It is never sent to MeetingCost servers. Calendar data is processed locally in your browser. Sheets data travels directly from your browser to Google's API under your own OAuth session — MeetingCost has no intermediary copy.</p>
+
+    <p><strong>4. Data Storage &amp; Protection</strong><br>
+    OAuth tokens for Google Calendar and Google Sheets are managed by Chrome's identity API (<code>chrome.identity</code>) and stored by Chrome — not by MeetingCost. No Google user data is written to MeetingCost's Firebase database or any MeetingCost server. All local processing uses Chrome's sandboxed extension storage.</p>
+
+    <p><strong>5. Data Retention &amp; Deletion</strong><br>
+    MeetingCost does not retain any Google Calendar or Google Sheets data beyond your active browser session. Revoking MeetingCost's OAuth access from your Google Account (<a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>) immediately terminates all access. You may also disconnect Google integrations from within the extension settings at any time. Meeting history you exported to Google Sheets remains in your own Google Drive and is under your control.</p>
+
+    <p><strong>MeetingCost's use of Google user data complies with the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the Limited Use requirements.</strong></p>
+  </div>
 
   <h2>Data stored on your device</h2>
   <p>
@@ -68,8 +209,8 @@
   <p>
     If you configure a Slack or Microsoft Teams webhook URL, the extension will POST a cost alert message
     to that URL when a meeting exceeds your configured budget threshold. The webhook URL is stored locally
-    in <code>chrome.storage.local</code>. Alert messages are sent via a Vercel proxy endpoint
-    (<code>meetingcost-success.vercel.app/api/send-webhook</code>) to avoid browser CORS restrictions.
+    in <code>chrome.storage.local</code>. Alert messages are sent via a proxy endpoint
+    (<code>meetingcostpro.com/api/send-webhook</code>) to avoid browser CORS restrictions.
     Only the alert message content (meeting name, cost, duration) is transmitted — no personal data,
     transcripts, or participant details are included unless you configure them in your alert template.
   </p>
@@ -87,7 +228,7 @@
     (for example your email address for license delivery). For on-chain stablecoin payments, the transaction
     is recorded on the relevant blockchain network—no personal data is collected by MeetingCost beyond
     the wallet address and transaction hash required for license verification. License verification calls
-    the MeetingCost Vercel endpoint (<code>meetingcost-success.vercel.app/api/verify-license</code>).
+    the MeetingCost endpoint (<code>meetingcostpro.com/api/verify-license</code>).
     See each processor's privacy policy for how they handle payment data.
   </p>
 
@@ -120,11 +261,23 @@
   <ul>
     <li>Clear meeting history, templates, AI results, or department tags from the extension UI at any time.</li>
     <li>Uninstalling the extension removes all locally stored data from <code>chrome.storage.local</code>.</li>
-    <li>AI API keys in memory are cleared when the service worker restarts. Use "Apply AI settings" again after a long idle period if needed.</li>
+    <li>AI API keys in memory are cleared when the service worker restarts.</li>
     <li>To delete cloud backup data from Firebase, contact support or delete your cloud account from within the extension settings.</li>
+    <li>To revoke Google OAuth access, visit <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a> and remove MeetingCost.</li>
   </ul>
 
   <h2 id="contact">Contact</h2>
   <p>For privacy questions, contact: <a href="mailto:siam_t_paite@meetingcostpro.com">siam_t_paite@meetingcostpro.com</a></p>
+  </div>
+
+  <footer>
+    <p>© 2026 MeetingCost. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+    </div>
+  </footer>
+
 </body>
 </html>

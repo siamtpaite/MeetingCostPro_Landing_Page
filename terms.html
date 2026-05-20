@@ -6,14 +6,120 @@
   <title>MeetingCost — Terms of Service</title>
   <link rel="stylesheet" href="meetingcost-fonts.css" />
   <style>
-    body { font-family: inherit; line-height: 1.5; max-width: 720px; margin: 24px auto; padding: 0 16px; color: #111; }
-    h1 { font-size: 1.5rem; }
-    h2 { font-size: 1.15rem; margin-top: 1.5rem; }
-    ul { padding-left: 1.25rem; }
-    a { color: #1a73e8; }
+    :root {
+      --bg-main: #0f1115;
+      --bg-card: #171a21;
+      --accent: #4ade80;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      font-family: inherit;
+      background-color: #0f1115;
+      color: #f8fafc;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      border-bottom: 1px solid #334155;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: white; }
+
+    .content {
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 24px;
+    }
+    .content h1 {
+      font-size: 1.8rem;
+      color: var(--text-main);
+    }
+    .content h2 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      margin-top: 1.5rem;
+    }
+    .content ul {
+      padding-left: 1.25rem;
+    }
+    .content p,
+    .content li {
+      color: #cbd5e1;
+    }
+    .content a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .content a:hover {
+      text-decoration: underline;
+    }
+    .content code {
+      background: #1e2330;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #94a3b8;
+      font-size: 0.9em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      border-top: 1px solid #334155;
+    }
+    footer .footer-links { margin-top: 16px; }
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 15px;
+    }
+    footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links { margin-top: 10px; }
+      .nav-links a { margin-left: 0; margin: 0 10px; }
+    }
   </style>
 </head>
 <body>
+
+  <nav>
+    <a href="/" class="logo">MeetingCost</a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/privacy.html">Security &amp; Privacy</a>
+      <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+    </div>
+  </nav>
+
+  <div class="content">
   <h1>MeetingCost Terms of Service</h1>
   <p><strong>Last updated:</strong> May 3, 2026</p>
   <p>
@@ -44,12 +150,17 @@
     <li>Monthly and yearly subscriptions purchased via Gumroad are governed by Gumroad's terms in addition to these Terms.</li>
   </ul>
 
-  <h2>4. Payments and Refunds</h2>
+  <h2 id="refunds">4. Payments and Refunds</h2>
+  <p>We want you to be satisfied with MeetingCost PRO. Refunds are available under the following conditions:</p>
   <ul>
-    <li><strong>Gumroad payments:</strong> Processed by Gumroad. Refund requests within 7 days of purchase may be submitted to <a href="mailto:siam_t_paite@meetingcostpro.com">siam_t_paite@meetingcostpro.com</a>. Refunds are granted at our discretion.</li>
-    <li><strong>Crypto payments (TRON, Solana, Base):</strong> All on-chain transactions are final and non-refundable. Verify the amount and network carefully before sending.</li>
-    <li>We are not responsible for funds sent to incorrect addresses or on incorrect networks.</li>
+    <li><strong>Eligibility window:</strong> Refund requests must be submitted within 7 days of purchase for Gumroad payments, or within 48 hours for crypto payments.</li>
+    <li><strong>Eligible reasons:</strong> Billing error, duplicate charge, license non-delivery, or a verified technical failure on our side that prevented the product from functioning.</li>
+    <li><strong>Not eligible:</strong> Change of mind after the eligibility window, accounts where PRO features have been actively used (meetings tracked, AI transcription consumed, or dashboard data generated), or license keys that have been shared or transferred.</li>
+    <li><strong>Crypto payments:</strong> Refunds are processed manually from our end within 5 business days of approval. The exact amount refunded will be the USD equivalent at the time of your original transaction.</li>
+    <li><strong>Gumroad payments:</strong> Approved refunds are processed via Gumroad and may take 5–10 business days to appear on your statement.</li>
+    <li><strong>License revocation:</strong> Upon approval of a refund, your PRO licence will be deactivated and access to PRO features will cease.</li>
   </ul>
+  <p>To request a refund, email <a href="mailto:siam_t_paite@meetingcostpro.com">siam_t_paite@meetingcostpro.com</a> with your purchase email, payment method, and a brief description of the issue.</p>
 
   <h2>5. Acceptable Use</h2>
   <p>You agree not to:</p>
@@ -112,9 +223,16 @@
     Questions about these Terms may be directed to
     <a href="mailto:siam_t_paite@meetingcostpro.com">siam_t_paite@meetingcostpro.com</a>.
   </p>
+  </div>
 
-  <p style="margin-top: 2rem; font-size: 0.85rem; color: #666;">
-    <a href="/privacy.html">Privacy Policy</a>
-  </p>
+  <footer>
+    <p>© 2026 MeetingCost. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/privacy.html">Security &amp; Privacy</a>
+      <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+    </div>
+  </footer>
+
 </body>
 </html>
