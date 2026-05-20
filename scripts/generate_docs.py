@@ -52,7 +52,6 @@ def page(title: str, active: str, body: str) -> str:
 <title>{title} — MeetingCost Docs</title>
 <link rel="stylesheet" href="meetingcost-fonts.css"/>
 <link rel="stylesheet" href="_shared.css"/>
-<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <nav class="topnav">
@@ -68,7 +67,7 @@ def page(title: str, active: str, body: str) -> str:
 <div class="docs-layout">
 {sidebar(active)}
   <main class="docs-main">
-    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+    <div class="docs-card">
 {body}
     </div>
   </main>
