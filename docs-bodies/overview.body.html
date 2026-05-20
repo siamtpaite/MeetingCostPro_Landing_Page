@@ -1,0 +1,77 @@
+    <div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Overview</h1>
+      <p>The Overview panel is your command centre — four stat cards giving you an instant read on current meeting cost, monthly performance, meeting efficiency, and year-to-date budget tracking.</p>
+    </div>
+
+    <h2>Panel 1 — Cost Summary</h2>
+    <p>The top-left card shows four live cost figures:</p>
+    <table class="docs-table">
+      <thead><tr><th>Metric</th><th>What it shows</th></tr></thead>
+      <tbody>
+        <tr><td>Total Cost Per Hour</td><td>The sum of all participants' hourly rates — what this meeting burns every 60 minutes. Updates in real time as participants are added or removed.</td></tr>
+        <tr><td>Total Cost This Month</td><td>All meeting costs logged this calendar month, with a percentage trend vs. last month.</td></tr>
+        <tr><td>Average Meeting Cost</td><td>Mean cost per meeting across all meetings recorded in the current month.</td></tr>
+        <tr><td>Cost This Meeting</td><td>The live running total for the current meeting. Updates every second while a meeting is active. Set a per-meeting budget here to see a warning when it's exceeded.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Panel 2 — Meeting Overview</h2>
+    <table class="docs-table">
+      <thead><tr><th>Metric</th><th>What it shows</th></tr></thead>
+      <tbody>
+        <tr><td>Total Meeting Time</td><td>Total hours spent in meetings this month.</td></tr>
+        <tr><td>Meetings This Month</td><td>Count of completed meetings this calendar month, with average duration.</td></tr>
+        <tr><td>Meetings This Year</td><td>Total meetings logged since January 1st of the current year, with average duration.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Panel 3 — Meeting Efficiency</h2>
+    <p>This panel shows the ROI score for your most recent meeting if AI feedback has been generated. It combines three sub-scores:</p>
+    <table class="docs-table">
+      <thead><tr><th>Sub-score</th><th>Weight</th><th>What it measures</th></tr></thead>
+      <tbody>
+        <tr><td>Cost Efficiency</td><td>40%</td><td>Was the cost justified given the meeting's outcome?</td></tr>
+        <tr><td>Decision Quality</td><td>30%</td><td>Were clear, actionable decisions made?</td></tr>
+        <tr><td>Action Clarity</td><td>30%</td><td>Did the meeting produce clear next steps?</td></tr>
+      </tbody>
+    </table>
+    <p>The combined score appears as a number from 0–100 with a letter grade (A through F). If no AI feedback is available, this panel shows manual ROI inputs — you can enter the value of outcomes and decisions made to calculate a manual ROI figure.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">📈</div>
+      <div class="callout-body"><strong>Cost per decision</strong> is calculated as total meeting cost divided by the number of decisions you log. Enter your decision count in the "Decisions made" field to see this figure.</div>
+    </div>
+
+    <h2>Panel 4 — Year-to-Date Summary</h2>
+    <p>Set a yearly meeting budget to unlock YTD tracking. Once set, this panel shows:</p>
+    <table class="docs-table">
+      <thead><tr><th>Metric</th><th>What it shows</th></tr></thead>
+      <tbody>
+        <tr><td>Budget Remaining</td><td>Your yearly budget minus total meeting costs logged year-to-date.</td></tr>
+        <tr><td>Total Meeting Hours YTD</td><td>Hours spent in meetings since January 1st.</td></tr>
+        <tr><td>Meeting Time %</td><td>Meeting hours as a percentage of your Business Hours YTD setting — shows what fraction of your working year has been spent in meetings.</td></tr>
+        <tr><td>Yearly Total Cost</td><td>Sum of all meeting costs this calendar year.</td></tr>
+        <tr><td>Projected Annual Cost</td><td>Extrapolates your current YTD spend to predict full-year meeting cost. Formula: (YTD cost ÷ days elapsed) × 365.</td></tr>
+        <tr><td>Budget Progress Bar</td><td>Visual indicator of budget consumed. Turns amber at 90% and red when over budget.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body"><strong>Live meeting cost is excluded from YTD totals</strong> until the meeting ends. The live cost counter shows the current session cost separately to avoid double-counting.</div>
+    </div>
+
+    <h2>Cost by Department</h2>
+    <p>Below the four stat cards, a department breakdown shows meeting costs split by cost centre. This section only populates if you've been tagging meetings with department labels in Settings → Meeting Context. It shows the top departments by total cost, helping identify which teams are spending the most time in meetings.</p>
+
+    <div class="docs-nav-footer">
+      <a href="settings.html" class="docs-nav-btn">
+        ← Previous
+        <span>Settings</span>
+      </a>
+      <a href="ai-insights.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>AI Insights →</span>
+      </a>
+    </div>

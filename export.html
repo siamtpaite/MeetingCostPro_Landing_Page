@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Export — MeetingCost Docs</title>
+<link rel="stylesheet" href="meetingcost-fonts.css"/>
+<link rel="stylesheet" href="_shared.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-logo">💸 MeetingCost <span>Docs</span></div>
+  <div class="topnav-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener">Install Extension</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</nav>
+<div class="docs-layout">
+<nav class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a class="sidebar-link" href="overview.html"><span class="icon">📊</span> Overview</a>
+      <a class="sidebar-link" href="getting-started.html"><span class="icon">🚀</span> Free Version & Trial</a>
+      <a class="sidebar-link" href="license.html"><span class="icon">🔑</span> Licenses & Login</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Pro Features</div>
+      <a class="sidebar-link" href="ai-insights.html"><span class="icon">🤖</span> AI Insights <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="cost-trends.html"><span class="icon">📈</span> Cost Trends <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="recurring-patterns.html"><span class="icon">🔁</span> Recurring Patterns <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="calendar.html"><span class="icon">📅</span> Calendar <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="webhook-alerts.html"><span class="icon">🔔</span> Webhook Alerts <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="team-preview.html"><span class="icon">👥</span> Team Preview <span class="sidebar-pro-badge">PRO</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Data & Settings</div>
+      <a class="sidebar-link" href="meeting-history.html"><span class="icon">📋</span> Meeting History</a>
+      <a class="sidebar-link active" href="export.html"><span class="icon">📤</span> Export <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="settings.html"><span class="icon">⚙️</span> Settings</a>
+    </div>
+  </nav>
+  <main class="docs-main">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+<div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Export <span class="pro-tag">PRO</span></h1>
+      <p>Export your meeting history in four formats — CSV, PDF, Google Sheets, or raw JSON. All exports go directly from your browser to your chosen destination. No data passes through MeetingCost servers.</p>
+    </div>
+
+    <h2>Date Range</h2>
+    <p>Before exporting, select the date range you want to include. Use the date pickers at the top of the Export panel to set a start and end date. The export includes all meetings within this range, sorted chronologically.</p>
+
+    <h2>Export Formats</h2>
+
+    <h3>CSV</h3>
+    <p>Downloads a <code>.csv</code> file containing one row per meeting with these columns: Date, Duration (hours), Cost, Participants, Meeting Type, Department, Efficiency Score.</p>
+    <p>Best for: importing into Excel, Google Sheets, or any data analysis tool. The most versatile format for further processing.</p>
+
+    <h3>PDF</h3>
+    <p>Generates a formatted PDF report including a summary section (total meetings, total cost, average cost, total duration) followed by a table of all meetings in the selected date range.</p>
+    <p>Best for: sharing with stakeholders, expensing meeting costs, or archiving a period's meeting activity as a readable document.</p>
+
+    <h3>Google Sheets</h3>
+    <p>Exports directly to a new or existing Google Sheet in your Google Drive. Uses your Google OAuth session — the data goes directly from your browser to your Drive, with no copy on MeetingCost servers.</p>
+
+    <h4>How to export to Google Sheets</h4>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Click "Export to Google Sheets"</strong>
+          A Google OAuth popup appears if you haven't already granted Sheets access.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Grant write access to Google Sheets</strong>
+          MeetingCost requests permission to create or append to Sheets in your Drive. This is a one-time step — subsequent exports use the same permission.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>A new Sheet is created in your Drive</strong>
+          The exported data appears in a new spreadsheet titled "MeetingCost Export — [date range]". A link to open the Sheet is shown after export completes.
+        </div>
+      </li>
+    </ol>
+
+    <h3>JSON</h3>
+    <p>Downloads the raw meeting history data as a <code>.json</code> file. This is the most complete format — it includes all stored fields for each meeting, including AI feedback objects, transcript snippets, and all metadata. Best for developers or users who want to process the data programmatically.</p>
+
+    <h2>What's Included in Exports</h2>
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>CSV</th><th>PDF</th><th>Sheets</th><th>JSON</th></tr></thead>
+      <tbody>
+        <tr><td>Date &amp; duration</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Total cost</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Participant count</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Meeting type &amp; department</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Efficiency score</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        <tr><td>AI summary</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr>
+        <tr><td>AI feedback scores</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr>
+        <tr><td>Full transcript</td><td>—</td><td>—</td><td>—</td><td>✅</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-success">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body"><strong>Your data, your format.</strong> All exports are generated locally in your browser. No export data is stored or logged on MeetingCost servers. Once downloaded, the file is entirely yours.</div>
+    </div>
+
+    <div class="docs-nav-footer">
+      <a href="meeting-history.html" class="docs-nav-btn">
+        ← Previous
+        <span>Meeting History</span>
+      </a>
+      <a href="settings.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Settings →</span>
+      </a>
+    </div>
+    </div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <p>© 2026 MeetingCost. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</footer>
+</body>
+</html>

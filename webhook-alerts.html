@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Webhook Alerts — MeetingCost Docs</title>
+<link rel="stylesheet" href="meetingcost-fonts.css"/>
+<link rel="stylesheet" href="_shared.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-logo">💸 MeetingCost <span>Docs</span></div>
+  <div class="topnav-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener">Install Extension</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</nav>
+<div class="docs-layout">
+<nav class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a class="sidebar-link" href="overview.html"><span class="icon">📊</span> Overview</a>
+      <a class="sidebar-link" href="getting-started.html"><span class="icon">🚀</span> Free Version & Trial</a>
+      <a class="sidebar-link" href="license.html"><span class="icon">🔑</span> Licenses & Login</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Pro Features</div>
+      <a class="sidebar-link" href="ai-insights.html"><span class="icon">🤖</span> AI Insights <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="cost-trends.html"><span class="icon">📈</span> Cost Trends <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="recurring-patterns.html"><span class="icon">🔁</span> Recurring Patterns <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="calendar.html"><span class="icon">📅</span> Calendar <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link active" href="webhook-alerts.html"><span class="icon">🔔</span> Webhook Alerts <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="team-preview.html"><span class="icon">👥</span> Team Preview <span class="sidebar-pro-badge">PRO</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Data & Settings</div>
+      <a class="sidebar-link" href="meeting-history.html"><span class="icon">📋</span> Meeting History</a>
+      <a class="sidebar-link" href="export.html"><span class="icon">📤</span> Export <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="settings.html"><span class="icon">⚙️</span> Settings</a>
+    </div>
+  </nav>
+  <main class="docs-main">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+<div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Webhook Alerts <span class="pro-tag">PRO</span></h1>
+      <p>Send automatic cost alerts to Slack or Microsoft Teams when a meeting exceeds your budget threshold. Alerts fire as soon as the meeting ends, posting a message directly to your chosen channel.</p>
+    </div>
+
+    <h2>How It Works</h2>
+    <p>When a meeting ends and its total cost exceeds the threshold you set, MeetingCost fires a POST request to your webhook URL with a formatted alert message. The message is sent via the MeetingCost proxy endpoint (<code>meetingcostpro.com/api/send-webhook</code>) to avoid browser CORS restrictions — only the alert content is transmitted, not any personal data or transcripts.</p>
+    <p>The alert payload uses Slack's standard <code>{ "text": "..." }</code> format, which is also accepted by Microsoft Teams incoming webhooks.</p>
+
+    <h2>Setting Up a Slack Webhook</h2>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Create a Slack app or use Incoming Webhooks</strong>
+          Go to <a href="https://api.slack.com/apps" target="_blank">api.slack.com/apps</a> → Create New App → From scratch. Give it a name and select your workspace.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Enable Incoming Webhooks</strong>
+          In your app settings, click <strong>Incoming Webhooks</strong> → toggle <strong>Activate Incoming Webhooks</strong> to On.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Add a webhook to a channel</strong>
+          Click <strong>Add New Webhook to Workspace</strong>, select the channel where alerts should appear, and click Allow.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Copy the webhook URL</strong>
+          The URL looks like <code>https://hooks.slack.com/services/T.../B.../...</code>. Copy it.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>Paste it in MeetingCost</strong>
+          In the Webhook Alerts panel, paste the URL into the <strong>Webhook URL</strong> field. It saves automatically on blur.
+        </div>
+      </li>
+    </ol>
+
+    <h2>Setting Up a Teams Webhook</h2>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open the Teams channel where you want alerts</strong>
+          Click the <strong>···</strong> menu next to the channel name → <strong>Connectors</strong>.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Find "Incoming Webhook" and click Configure</strong>
+          Give it a name (e.g. "MeetingCost Alerts") and optionally upload an icon.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Copy the webhook URL</strong>
+          Teams generates a URL like <code>https://outlook.office.com/webhook/...</code>. Copy it.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Paste it in MeetingCost</strong>
+          In the Webhook Alerts panel, paste the URL into the Webhook URL field.
+        </div>
+      </li>
+    </ol>
+
+    <h2>Setting the Cost Threshold</h2>
+    <p>Enter a cost amount in the <strong>Alert Threshold</strong> field. Alerts only fire when a meeting's total cost exceeds this amount. For example, set it to <code>50</code> to receive alerts for any meeting that costs more than $50 (in your selected currency).</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body"><strong>Threshold of 0 means no alerts.</strong> Set a threshold greater than zero to activate alerts. A threshold of zero or blank disables webhook firing entirely.</div>
+    </div>
+
+    <h2>Alert Message Format</h2>
+    <p>When an alert fires, the message posted to your channel looks like this:</p>
+    <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:16px 20px; margin:16px 0; font-family:var(--mono); font-size:13px; color:var(--text-muted);">
+      🔔 *MeetingCost Alert* — Meeting exceeded budget threshold!<br/>
+      *Cost:* 87.50 USD<br/>
+      *Duration:* 52 min<br/>
+      *Department:* Engineering<br/>
+      *Participants:* 6<br/>
+      *Threshold:* 50 USD
+    </div>
+
+    <h2>Testing Your Webhook</h2>
+    <p>Click <strong>Test Webhook</strong> in the Webhook Alerts panel to send a test message to your channel immediately. The test message says "✅ MeetingCost webhook test successful!" and confirms the URL is working. If the test fails, check that the URL is correct and hasn't expired.</p>
+
+    <div class="docs-nav-footer">
+      <a href="calendar.html" class="docs-nav-btn">
+        ← Previous
+        <span>Calendar</span>
+      </a>
+      <a href="team-preview.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Team Preview →</span>
+      </a>
+    </div>
+    </div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <p>© 2026 MeetingCost. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,47 @@
+    <div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Team Preview <span class="pro-tag">PRO</span></h1>
+      <p>A shared meeting cost feed that aggregates data from all meetings logged under your team account. See total team meeting costs, breakdown by department, and cost per team member.</p>
+    </div>
+
+    <h2>What Team Preview Shows</h2>
+    <p>Team Preview reads from your account's team meeting feed — a shared Firestore collection where meetings are recorded as they're completed. It shows:</p>
+
+    <table class="docs-table">
+      <thead><tr><th>Section</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Summary</td><td>Total number of records in the team feed and combined total meeting cost across all records.</td></tr>
+        <tr><td>By Department</td><td>Meeting cost and count broken down by department tag. Departments are set in Settings → Meeting Context → Department. Untagged meetings appear as "Untagged".</td></tr>
+        <tr><td>By Member</td><td>Meeting cost and count per team member (identified by user ID, display name, or email). Shows who is driving the most meeting cost.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Team Feed Works</h2>
+    <p>Every time a meeting ends while you're signed in, MeetingCost writes a record to the team meetings collection in Firestore at <code>teamMeetings/{your-email}/meetings</code>. This feed is scoped to your own email — your data is not visible to other users unless they share your account credentials.</p>
+    <p>The Team Preview panel reads the 100 most recent meetings from this feed and aggregates them for display.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">👥</div>
+      <div class="callout-body"><strong>Cross-user team visibility</strong> — where multiple team members' data appears in a shared view — is planned for a future release. The current Team Preview shows your own collected team data only.</div>
+    </div>
+
+    <h2>Team Patterns</h2>
+    <p>The <a href="recurring-patterns.html">Recurring Patterns</a> panel also includes a <strong>Team Patterns</strong> tab that analyses this same team feed for recurring meeting patterns, frequency trends, cost per attendee, async candidates, and ROI scores.</p>
+
+    <h2>Requirements</h2>
+    <ul>
+      <li>You must be <strong>signed in</strong> to a MeetingCost account for team feed data to be collected and displayed.</li>
+      <li>Meetings must be completed while signed in — meetings logged before sign-in are not retroactively added to the team feed.</li>
+      <li>Department tags are optional but strongly recommended for meaningful breakdowns.</li>
+    </ul>
+
+    <div class="docs-nav-footer">
+      <a href="webhook-alerts.html" class="docs-nav-btn">
+        ← Previous
+        <span>Webhook Alerts</span>
+      </a>
+      <a href="meeting-history.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Meeting History →</span>
+      </a>
+    </div>

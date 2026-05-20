@@ -1,0 +1,97 @@
+    <div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Calendar <span class="pro-tag">PRO</span></h1>
+      <p>Connect Google Calendar or Outlook to see upcoming meetings with projected costs — before they happen. Cancel the expensive ones before they start.</p>
+    </div>
+
+    <h2>Google Calendar Integration</h2>
+    <p>Connecting Google Calendar gives MeetingCost <strong>read-only</strong> access to your upcoming events. It uses these events to calculate projected costs based on meeting duration and your current participant roster rates.</p>
+
+    <h3>How to connect Google Calendar</h3>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open the Calendar panel in the PRO dashboard</strong>
+          Click Calendar in the left sidebar.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Click "Sync Google Calendar"</strong>
+          A Google OAuth popup appears. Sign in with your Google account and grant MeetingCost read-only calendar access.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Upcoming meetings appear with cost projections</strong>
+          Events from the next 7 days appear with projected cost, duration, and attendee count. Projections are based on your current hourly rate settings.
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout-success">
+      <div class="callout-icon">🔐</div>
+      <div class="callout-body"><strong>Privacy:</strong> Calendar data is processed locally in your browser. Event titles, times, and attendee counts are never sent to MeetingCost servers. OAuth tokens are managed by Chrome's identity APIs and stored only in your browser. See <a href="/privacy.html">Security &amp; Privacy</a> for full details.</div>
+    </div>
+
+    <h2>Outlook Calendar Integration</h2>
+    <p>MeetingCost also supports Outlook and Microsoft Teams calendar events via the Microsoft Graph API. This covers both personal Outlook accounts and Microsoft 365 work accounts.</p>
+
+    <h3>How to connect Outlook Calendar</h3>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Click "Sync Outlook Calendar"</strong>
+          In the Calendar panel, click the Sync Outlook Calendar button.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Sign in with your Microsoft account</strong>
+          A Microsoft login popup appears. Sign in with your Outlook or Microsoft 365 account and grant calendar read access.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Outlook events appear alongside Google events</strong>
+          If both calendars are connected, events from both are merged into a single upcoming meetings view with combined cost projections.
+        </div>
+      </li>
+    </ol>
+
+    <h2>Projected Meeting Costs</h2>
+    <p>The Calendar panel shows upcoming meetings in a list with these details for each:</p>
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Meeting title</td><td>Event title from your calendar.</td></tr>
+        <tr><td>Date &amp; time</td><td>Scheduled start time.</td></tr>
+        <tr><td>Duration</td><td>Scheduled duration from the calendar event.</td></tr>
+        <tr><td>Projected cost</td><td>Estimated cost based on duration × your current total hourly rate. This is an estimate — actual cost depends on who attends.</td></tr>
+        <tr><td>This week / Next week totals</td><td>Summed projected costs for the current and following week, giving a forward-looking budget view.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Yearly Cost Forecast</h2>
+    <p>Below the upcoming meetings list, MeetingCost calculates a yearly forecast by projecting your current meeting patterns forward. This shows estimated total meeting cost for the rest of the calendar year based on your historical meeting frequency and average cost. The forecast updates each time you sync your calendar.</p>
+
+    <h2>Disconnecting a Calendar</h2>
+    <p>To disconnect Google Calendar, go to Calendar → click <strong>Disconnect Google Calendar</strong>. To revoke access entirely, visit <a href="https://myaccount.google.com/permissions" target="_blank">myaccount.google.com/permissions</a> and remove MeetingCost.</p>
+    <p>To disconnect Outlook, click <strong>Disconnect Outlook</strong> in the Calendar panel. This clears your Outlook OAuth tokens from local storage.</p>
+
+    <div class="docs-nav-footer">
+      <a href="recurring-patterns.html" class="docs-nav-btn">
+        ← Previous
+        <span>Recurring Patterns</span>
+      </a>
+      <a href="webhook-alerts.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Webhook Alerts →</span>
+      </a>
+    </div>

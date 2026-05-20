@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Team Preview — MeetingCost Docs</title>
+<link rel="stylesheet" href="meetingcost-fonts.css"/>
+<link rel="stylesheet" href="_shared.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-logo">💸 MeetingCost <span>Docs</span></div>
+  <div class="topnav-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener">Install Extension</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</nav>
+<div class="docs-layout">
+<nav class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a class="sidebar-link" href="overview.html"><span class="icon">📊</span> Overview</a>
+      <a class="sidebar-link" href="getting-started.html"><span class="icon">🚀</span> Free Version & Trial</a>
+      <a class="sidebar-link" href="license.html"><span class="icon">🔑</span> Licenses & Login</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Pro Features</div>
+      <a class="sidebar-link" href="ai-insights.html"><span class="icon">🤖</span> AI Insights <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="cost-trends.html"><span class="icon">📈</span> Cost Trends <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="recurring-patterns.html"><span class="icon">🔁</span> Recurring Patterns <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="calendar.html"><span class="icon">📅</span> Calendar <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="webhook-alerts.html"><span class="icon">🔔</span> Webhook Alerts <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link active" href="team-preview.html"><span class="icon">👥</span> Team Preview <span class="sidebar-pro-badge">PRO</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Data & Settings</div>
+      <a class="sidebar-link" href="meeting-history.html"><span class="icon">📋</span> Meeting History</a>
+      <a class="sidebar-link" href="export.html"><span class="icon">📤</span> Export <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="settings.html"><span class="icon">⚙️</span> Settings</a>
+    </div>
+  </nav>
+  <main class="docs-main">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+<div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Team Preview <span class="pro-tag">PRO</span></h1>
+      <p>A shared meeting cost feed that aggregates data from all meetings logged under your team account. See total team meeting costs, breakdown by department, and cost per team member.</p>
+    </div>
+
+    <h2>What Team Preview Shows</h2>
+    <p>Team Preview reads from your account's team meeting feed — a shared Firestore collection where meetings are recorded as they're completed. It shows:</p>
+
+    <table class="docs-table">
+      <thead><tr><th>Section</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Summary</td><td>Total number of records in the team feed and combined total meeting cost across all records.</td></tr>
+        <tr><td>By Department</td><td>Meeting cost and count broken down by department tag. Departments are set in Settings → Meeting Context → Department. Untagged meetings appear as "Untagged".</td></tr>
+        <tr><td>By Member</td><td>Meeting cost and count per team member (identified by user ID, display name, or email). Shows who is driving the most meeting cost.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How the Team Feed Works</h2>
+    <p>Every time a meeting ends while you're signed in, MeetingCost writes a record to the team meetings collection in Firestore at <code>teamMeetings/{your-email}/meetings</code>. This feed is scoped to your own email — your data is not visible to other users unless they share your account credentials.</p>
+    <p>The Team Preview panel reads the 100 most recent meetings from this feed and aggregates them for display.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">👥</div>
+      <div class="callout-body"><strong>Cross-user team visibility</strong> — where multiple team members' data appears in a shared view — is planned for a future release. The current Team Preview shows your own collected team data only.</div>
+    </div>
+
+    <h2>Team Patterns</h2>
+    <p>The <a href="recurring-patterns.html">Recurring Patterns</a> panel also includes a <strong>Team Patterns</strong> tab that analyses this same team feed for recurring meeting patterns, frequency trends, cost per attendee, async candidates, and ROI scores.</p>
+
+    <h2>Requirements</h2>
+    <ul>
+      <li>You must be <strong>signed in</strong> to a MeetingCost account for team feed data to be collected and displayed.</li>
+      <li>Meetings must be completed while signed in — meetings logged before sign-in are not retroactively added to the team feed.</li>
+      <li>Department tags are optional but strongly recommended for meaningful breakdowns.</li>
+    </ul>
+
+    <div class="docs-nav-footer">
+      <a href="webhook-alerts.html" class="docs-nav-btn">
+        ← Previous
+        <span>Webhook Alerts</span>
+      </a>
+      <a href="meeting-history.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Meeting History →</span>
+      </a>
+    </div>
+    </div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <p>© 2026 MeetingCost. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meeting History — MeetingCost Docs</title>
+<link rel="stylesheet" href="meetingcost-fonts.css"/>
+<link rel="stylesheet" href="_shared.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-logo">💸 MeetingCost <span>Docs</span></div>
+  <div class="topnav-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener">Install Extension</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</nav>
+<div class="docs-layout">
+<nav class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a class="sidebar-link" href="overview.html"><span class="icon">📊</span> Overview</a>
+      <a class="sidebar-link" href="getting-started.html"><span class="icon">🚀</span> Free Version & Trial</a>
+      <a class="sidebar-link" href="license.html"><span class="icon">🔑</span> Licenses & Login</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Pro Features</div>
+      <a class="sidebar-link" href="ai-insights.html"><span class="icon">🤖</span> AI Insights <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="cost-trends.html"><span class="icon">📈</span> Cost Trends <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="recurring-patterns.html"><span class="icon">🔁</span> Recurring Patterns <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="calendar.html"><span class="icon">📅</span> Calendar <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="webhook-alerts.html"><span class="icon">🔔</span> Webhook Alerts <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="team-preview.html"><span class="icon">👥</span> Team Preview <span class="sidebar-pro-badge">PRO</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Data & Settings</div>
+      <a class="sidebar-link active" href="meeting-history.html"><span class="icon">📋</span> Meeting History</a>
+      <a class="sidebar-link" href="export.html"><span class="icon">📤</span> Export <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="settings.html"><span class="icon">⚙️</span> Settings</a>
+    </div>
+  </nav>
+  <main class="docs-main">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+<div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Meeting History</h1>
+      <p>A chronological log of every meeting MeetingCost has recorded — with cost, duration, participants, department tag, AI feedback, and the ability to load any past meeting's data back into the live dashboard.</p>
+    </div>
+
+    <h2>What Gets Recorded</h2>
+    <p>MeetingCost automatically saves a record when a meeting ends on a supported platform. Each record stores:</p>
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Date &amp; time</td><td>When the meeting started and ended.</td></tr>
+        <tr><td>Duration</td><td>Total meeting length in minutes.</td></tr>
+        <tr><td>Total cost</td><td>Final cost calculated from participant rates and duration.</td></tr>
+        <tr><td>Participant count</td><td>Number of participants in the roster at the time.</td></tr>
+        <tr><td>Meeting type</td><td>The type set in Meeting Context (if configured).</td></tr>
+        <tr><td>Department</td><td>The department tag set in Meeting Context (if configured).</td></tr>
+        <tr><td>Efficiency score</td><td>AI-generated efficiency score (if AI Insights was used).</td></tr>
+        <tr><td>AI summary</td><td>AI-generated meeting summary (if AI Insights was used).</td></tr>
+        <tr><td>AI feedback</td><td>Cost efficiency, decision quality, action clarity scores and recommendations.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Browsing History</h2>
+    <p>The Meeting History panel shows records in reverse chronological order (most recent first). Each entry is collapsible — click a row to expand it and see full details including any AI summary and feedback.</p>
+    <p>Use the <strong>date range filter</strong> at the top to narrow the list to a specific period. You can also filter by meeting type or department using the filter controls.</p>
+
+    <h2>Loading a Past Meeting</h2>
+    <p>Click <strong>Load Meeting</strong> on any history entry to restore that meeting's context into the dashboard. This loads the participant roster, costs, and AI feedback from that session back into the Overview panel — useful for reviewing or reporting on a specific past meeting. The live cost counter is paused while a historical meeting is loaded.</p>
+
+    <h2>Deleting Records</h2>
+    <p>To delete a single meeting record, expand the entry and click the delete icon. To delete all history, use Privacy → Clear Meeting History. Deleted records are removed from both local storage and the cloud (if you're signed in) on the next sync cycle.</p>
+
+    <h2>Storage Limits</h2>
+    <p>MeetingCost stores up to <strong>500 meetings</strong> in local storage and syncs up to 500 records to Firestore when signed in. When the limit is reached, the oldest records are pruned automatically during the next sync. Adjust the retention window in Privacy settings to control how aggressively old records are removed.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body"><strong>Export before you lose data.</strong> If you're approaching the 500-meeting limit or have data you want to keep permanently, export it to CSV, PDF, or Google Sheets. Exported data is yours to keep indefinitely. See <a href="export.html">Export</a>.</div>
+    </div>
+
+    <div class="docs-nav-footer">
+      <a href="team-preview.html" class="docs-nav-btn">
+        ← Previous
+        <span>Team Preview</span>
+      </a>
+      <a href="export.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Export →</span>
+      </a>
+    </div>
+    </div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <p>© 2026 MeetingCost. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</footer>
+</body>
+</html>

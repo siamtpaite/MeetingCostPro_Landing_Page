@@ -1,0 +1,124 @@
+    <div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Settings</h1>
+      <p>The Settings panel is where you configure everything that affects how meeting costs are calculated — participants, rates, currency, overlay behaviour, budgets, and more. Settings are available in both the popup and the dashboard.</p>
+    </div>
+
+    <h2>Currency</h2>
+    <p>Select your currency from the dropdown. MeetingCost supports 50+ currencies across all regions. The selected currency applies to the live ticker, all dashboard stats, exports, and budget calculations. You can change currency at any time — historical meeting costs are stored in your original currency and converted on display.</p>
+
+    <h2>Participants</h2>
+    <p>Participants define who is in the meeting and what their time costs. The live ticker multiplies each person's hourly rate by the elapsed meeting time to show real-time cost.</p>
+
+    <h3>Adding a participant</h3>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Click "+ Add" in the Participants section</strong>
+          A new row appears with fields for name and hourly rate.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Enter a name and hourly rate</strong>
+          The name is for your reference only — it's never sent anywhere. The hourly rate is the all-in cost of that person's time (salary + overhead if using the multiplier).
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Repeat for all participants</strong>
+          Add as many participants as needed. The total hourly rate updates automatically as you add more.
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body"><strong>You don't need to add everyone individually.</strong> If all participants have the same rate, add one participant and set the rate to <code>number of people × hourly rate</code>. For example, 5 people at $100/hr = one participant at $500/hr.</div>
+    </div>
+
+    <h2>Overhead Multiplier</h2>
+    <p>The overhead multiplier accounts for the true cost of an employee beyond their base salary — including benefits, payroll taxes, equipment, and office space. A typical value is <strong>1.35×</strong> (35% overhead on top of salary).</p>
+    <p>If your team's fully-loaded cost is already factored into the hourly rates you enter, set the multiplier to <strong>1.0</strong> (no adjustment). If you're using base salaries only, a multiplier of 1.25–1.5 is a reasonable estimate for most organisations.</p>
+
+    <h2>Roster Persistence</h2>
+    <p>Controls what happens to the participant list when a meeting ends:</p>
+    <table class="docs-table">
+      <thead><tr><th>Option</th><th>Behaviour</th></tr></thead>
+      <tbody>
+        <tr><td>Save roster between meetings</td><td>Participants are reloaded automatically the next time you open the extension. Best for recurring meetings with the same people.</td></tr>
+        <tr><td>Clear after every meeting</td><td>The roster is wiped when the meeting ends. Best if you have different people in every meeting.</td></tr>
+        <tr><td>Ask me each time</td><td>After each meeting, MeetingCost asks whether to keep or clear the previous roster.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Overlay Display</h2>
+    <p>Controls how the live cost ticker appears on your meeting screen:</p>
+    <table class="docs-table">
+      <thead><tr><th>Option</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Position</td><td>Choose top-left, top-right, bottom-left, or bottom-right. The ticker always appears within the meeting window.</td></tr>
+        <tr><td>Compact mode</td><td>Reduces the ticker to a small badge showing only the total cost — useful for smaller screens or when you need to minimise distraction.</td></tr>
+        <tr><td>Show cost per minute</td><td>Displays the per-minute burn rate alongside the total cost.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Host Profile</h2>
+    <p>The host profile stores your own name and role for use in meeting reports and AI feedback. Setting this allows AI summaries to reference you by name and role when generating meeting insights.</p>
+
+    <h2>Meeting Context</h2>
+    <p>Before or during a meeting, you can set optional context that improves AI feedback quality:</p>
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Meeting Type</td><td>Classify the meeting (standup, planning, client call, retrospective, etc.). Used in analytics and recurring pattern detection.</td></tr>
+        <tr><td>Department / Cost Center</td><td>Tag the meeting to a team or department for cost breakdowns in the analytics dashboard.</td></tr>
+        <tr><td>Meeting Goal</td><td>Describe what the meeting is trying to achieve. The AI uses this to assess whether the outcome justified the cost.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Meeting Budget</h2>
+    <p>Set a per-meeting budget threshold. When the live cost exceeds this amount, the ticker changes colour to warn you. This is the <strong>per-meeting</strong> budget — for organisation-wide yearly budget tracking, see <a href="overview.html">Overview → Year-to-Date Summary</a>.</p>
+
+    <h2>Business Hours YTD</h2>
+    <p>Enter the number of working hours logged year-to-date. This is used in the Overview panel to calculate what percentage of your working time has been spent in meetings. A typical full-time year is ~2000 hours; adjust for your actual hours worked so far this year.</p>
+
+    <h2>Meeting Templates</h2>
+    <p>Templates save a participant roster so you can reload it instantly for recurring meetings. To create a template:</p>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Set up your participants as usual</strong>
+          Add all participants and their rates in the Participants section.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Click "Save as Template"</strong>
+          Give the template a name (e.g. "Weekly Standup", "Client Call — Acme").
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Load a template before your next meeting</strong>
+          Click the template name to instantly populate the participant list.
+        </div>
+      </li>
+    </ol>
+
+    <div class="docs-nav-footer">
+      <a href="export.html" class="docs-nav-btn">
+        ← Previous
+        <span>Export</span>
+      </a>
+      <a href="overview.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Overview →</span>
+      </a>
+    </div>

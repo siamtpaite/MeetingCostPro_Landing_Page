@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Recurring Patterns — MeetingCost Docs</title>
+<link rel="stylesheet" href="meetingcost-fonts.css"/>
+<link rel="stylesheet" href="_shared.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-logo">💸 MeetingCost <span>Docs</span></div>
+  <div class="topnav-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener">Install Extension</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</nav>
+<div class="docs-layout">
+<nav class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a class="sidebar-link" href="overview.html"><span class="icon">📊</span> Overview</a>
+      <a class="sidebar-link" href="getting-started.html"><span class="icon">🚀</span> Free Version & Trial</a>
+      <a class="sidebar-link" href="license.html"><span class="icon">🔑</span> Licenses & Login</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Pro Features</div>
+      <a class="sidebar-link" href="ai-insights.html"><span class="icon">🤖</span> AI Insights <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="cost-trends.html"><span class="icon">📈</span> Cost Trends <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link active" href="recurring-patterns.html"><span class="icon">🔁</span> Recurring Patterns <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="calendar.html"><span class="icon">📅</span> Calendar <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="webhook-alerts.html"><span class="icon">🔔</span> Webhook Alerts <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="team-preview.html"><span class="icon">👥</span> Team Preview <span class="sidebar-pro-badge">PRO</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Data & Settings</div>
+      <a class="sidebar-link" href="meeting-history.html"><span class="icon">📋</span> Meeting History</a>
+      <a class="sidebar-link" href="export.html"><span class="icon">📤</span> Export <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="settings.html"><span class="icon">⚙️</span> Settings</a>
+    </div>
+  </nav>
+  <main class="docs-main">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+<div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>Recurring Patterns <span class="pro-tag">PRO</span></h1>
+      <p>Automatically detects meetings that happen repeatedly and surfaces behavioural insights — frequency trends, cost-per-attendee, async candidates, and ROI scores — so you can optimise your meeting habits over time.</p>
+    </div>
+
+    <h2>How Pattern Detection Works</h2>
+    <p>MeetingCost analyses your meeting history and groups meetings by <strong>type + day of week + time slot</strong>. Any group with 2 or more occurrences is considered a recurring pattern. No manual configuration needed — patterns emerge automatically as you log meetings.</p>
+    <p>For example, if you have a "client call" every Saturday at the same time, MeetingCost detects that as a recurring pattern and tracks its cost, duration, attendee count, and ROI over time.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body"><strong>Patterns need at least 2 meetings to appear.</strong> The more meetings logged, the more accurate the analysis. Set the <strong>Meeting Type</strong> field consistently for best results — meetings without a type are grouped as "unknown".</div>
+    </div>
+
+    <h2>My Patterns Tab</h2>
+    <p>The My Patterns tab shows analysis of your own meeting history. It contains four panels:</p>
+
+    <h3>1. Meeting Frequency</h3>
+    <p>A bar chart showing how many meetings you've had per week over the past 8 weeks, plus three summary stats:</p>
+    <ul>
+      <li><strong>Avg / Week</strong> — mean meetings per week over the analysis window</li>
+      <li><strong>Avg / Month</strong> — mean meetings per month</li>
+      <li><strong>Trend</strong> — Increasing, Stable, or Decreasing, based on first half vs. second half of the window</li>
+    </ul>
+
+    <h3>2. Cost Per Attendee</h3>
+    <p>A monthly bar chart of average cost per attendee — total meeting cost divided by number of participants. This metric shows whether your meetings are becoming more or less cost-efficient per person over time. Trends are calculated over a 12-week rolling window.</p>
+
+    <h3>3. Could Be an Email</h3>
+    <p>Meetings flagged as strong candidates for replacement with an async update (email, Slack message, shared doc). A meeting is flagged if it meets two or more of these criteria:</p>
+    <ul>
+      <li>Duration ≤ 20 minutes</li>
+      <li>4 or fewer attendees</li>
+      <li>AI flagged it as "high" or "medium" async replacement likelihood</li>
+      <li>Not classified as a decision meeting</li>
+    </ul>
+    <p>Each flagged meeting shows the potential saving — the full cost of that meeting, since it could theoretically be eliminated entirely. The panel shows the top 5 candidates by cost, and a total recoverable amount at the top.</p>
+
+    <h3>4. Recurring Meeting ROI</h3>
+    <p>A list of detected recurring patterns with ROI scores, optimization status, and projected yearly cost. Each row shows:</p>
+    <table class="docs-table">
+      <thead><tr><th>Field</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Meeting name &amp; day</td><td>The meeting type and day of week it typically occurs.</td></tr>
+        <tr><td>Occurrences</td><td>How many times this meeting has been logged.</td></tr>
+        <tr><td>Avg duration &amp; attendees</td><td>Mean duration and participant count across all occurrences.</td></tr>
+        <tr><td>ROI Score</td><td>0–100 score calculated from AI feedback (if available). Weighted: Cost Efficiency 40%, Decision Quality 30%, Action Clarity 30%. Shows "No AI score" until AI feedback is generated for a meeting in this pattern.</td></tr>
+        <tr><td>Verdict badge</td><td>High Value (green), On Track (grey), Go Async (amber), Low ROI (red) — automatically assigned based on ROI score and async likelihood.</td></tr>
+        <tr><td>Async potential %</td><td>Percentage of meetings in this series flagged as async candidates.</td></tr>
+        <tr><td>Optimization status</td><td>Dropdown to mark the meeting as On Track, Optimized, or Needs Review.</td></tr>
+        <tr><td>Avg cost &amp; projected/yr</td><td>Average cost per occurrence and estimated full-year cost assuming weekly recurrence.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Optimization Status Tracking</h3>
+    <p>The status dropdown on each ROI row lets you track your optimization work:</p>
+    <table class="docs-table">
+      <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>On Track</td><td>Default. Meeting is running as expected.</td></tr>
+        <tr><td>Optimized</td><td>You've made changes to improve this meeting (fewer attendees, shorter duration, moved to async, etc.). When you first set this status, the current average cost is saved as the <strong>baseline</strong>.</td></tr>
+        <tr><td>Needs Review</td><td>This meeting needs attention — high cost, low ROI, or flagged for async replacement.</td></tr>
+      </tbody>
+    </table>
+    <p>When a meeting is marked <strong>Optimized</strong>, MeetingCost records the baseline cost at that point in time. On subsequent refreshes, it compares the current average cost to the baseline and shows a before/after improvement indicator — for example: ↓ $4.78 → $3.20 (-33%) since 2026-05-20.</p>
+    <p>Optimization status and baseline data are saved to your cloud account (Firestore) so they persist across devices and sessions.</p>
+
+    <h2>Team Patterns Tab</h2>
+    <p>The Team Patterns tab shows the same four behavioural panels but analysed against your <strong>team meeting feed</strong> — the meetings logged under your account's team data. This gives you a view of meeting patterns from the organisational perspective rather than just your own calendar.</p>
+    <p>Team Patterns data comes from your team's shared Firestore feed. It updates each time you click <strong>Refresh Team Insights</strong>.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">👥</div>
+      <div class="callout-body"><strong>Note:</strong> Team Patterns currently shows your own collected team meeting data. Cross-team visibility for multiple users is planned for a future release.</div>
+    </div>
+
+    <h2>Refreshing Insights</h2>
+    <p>Click <strong>Refresh Insights</strong> (My Patterns) or <strong>Refresh Team Insights</strong> (Team Patterns) to reanalyse your meeting history. The timestamp next to the button shows when the analysis was last run. Insights are not updated automatically — refresh manually after completing meetings to see updated patterns.</p>
+
+    <div class="docs-nav-footer">
+      <a href="cost-trends.html" class="docs-nav-btn">
+        ← Previous
+        <span>Cost Trends</span>
+      </a>
+      <a href="calendar.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Calendar →</span>
+      </a>
+    </div>
+    </div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <p>© 2026 MeetingCost. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</footer>
+</body>
+</html>

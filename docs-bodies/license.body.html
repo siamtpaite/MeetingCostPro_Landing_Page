@@ -1,0 +1,169 @@
+    <div class="page-header">
+      <div class="page-header-eyebrow">Getting Started</div>
+      <h1>Licenses &amp; Login</h1>
+      <p>How PRO licenses are generated, how to activate them, how to sign in, and how your data syncs across devices.</p>
+    </div>
+
+    <h2>How Licensing Works</h2>
+    <p>MeetingCost PRO uses a <strong>license key system</strong>. When you purchase, a unique license key is generated and tied to your email address. You enter this key once in the extension to unlock PRO features. The key is verified against the MeetingCost license server and stored locally — you don't need to enter it again unless you reinstall or clear browser data.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">🔑</div>
+      <div class="callout-body"><strong>License keys look like this:</strong> <code>XXXX-XXXX-XXXX-XXXX</code> — 16 characters in four groups of four, separated by dashes. Keep your license key safe. It's tied to your email and can be reused across reinstalls.</div>
+    </div>
+
+    <h2>Purchasing via Gumroad (Card)</h2>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Go to the MeetingCost purchase page</strong>
+          Click <strong>Get MeetingCost</strong> on <a href="https://meetingcostpro.com" target="_blank">meetingcostpro.com</a> or the Chrome Web Store listing.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Complete checkout on Gumroad</strong>
+          Enter your email and payment details. Choose monthly ($19.99) or yearly ($199.99).
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Check your email</strong>
+          Gumroad sends a receipt email immediately after purchase. Your <strong>license key</strong> is included in this email. It looks like <code>XXXX-XXXX-XXXX-XXXX</code>.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Activate the license in the extension</strong>
+          See <a href="#activate">Activating Your License</a> below.
+        </div>
+      </li>
+    </ol>
+
+    <h2>Purchasing with Crypto (Stablecoins)</h2>
+    <p>MeetingCost accepts stablecoin payments directly inside the extension — no third-party checkout page. Supported currencies: <strong>USDT on Tron</strong>, <strong>USDC on Solana</strong>, <strong>USDC on Base</strong>. Crypto pricing is 20% lower than card pricing.</p>
+
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open the extension popup and click "Pay with Crypto"</strong>
+          This opens the in-extension crypto payment flow.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Select your plan and network</strong>
+          Choose monthly ($15.99) or yearly ($159.99), then select your preferred network (Tron, Solana, or Base).
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Send the exact amount to the displayed wallet address</strong>
+          The payment screen shows a wallet address and the exact amount to send. Use your crypto wallet to send the payment. The extension monitors the blockchain for confirmation.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>License is generated automatically</strong>
+          Once the transaction confirms on-chain, MeetingCost generates your license key automatically and unlocks PRO features. No email needed — the license is tied to your transaction hash and wallet address.
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout-warning">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body"><strong>Send the exact amount.</strong> The payment verification system checks for the exact USDT/USDC amount. Sending a different amount may delay or fail verification. If you have issues, contact <a href="mailto:siam_t_paite@meetingcostpro.com">support</a> with your transaction hash.</div>
+    </div>
+
+    <h2 id="activate">Activating Your License</h2>
+    <p>Once you have your license key, here's how to activate it:</p>
+
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open the MeetingCost popup</strong>
+          Click the extension icon in your Chrome toolbar.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Click "Open Dashboard" or "Activate PRO"</strong>
+          If your license isn't active, you'll see an activation prompt either in the popup or when you try to open the PRO dashboard.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Enter your license key</strong>
+          The activation screen shows a text field labeled <strong>License key</strong>. Paste your key in the format <code>XXXX-XXXX-XXXX-XXXX</code>.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Click "Activate license"</strong>
+          The extension verifies your key against the MeetingCost server. On success, PRO features unlock immediately and the dashboard opens.
+        </div>
+      </li>
+    </ol>
+
+    <h2>Signing In (Cloud Sync)</h2>
+    <p>Signing in with a MeetingCost account is <strong>optional but recommended</strong>. It enables cross-device sync — your meeting history, settings, and dashboard data are backed up to Firebase Firestore under your user ID and restored when you sign in on another device.</p>
+
+    <h3>How to sign in</h3>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Open the PRO dashboard</strong>
+          Click the extension icon → Open Dashboard.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Click "Sign In" in the dashboard header</strong>
+          This opens the sign-in form. Enter your email and password. If you're a new user, you can create an account from the same screen.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Your data syncs automatically</strong>
+          Once signed in, meeting history, templates, and dashboard settings sync to the cloud and are restored on any device where you sign in with the same account.
+        </div>
+      </li>
+    </ol>
+
+    <div class="callout callout-success">
+      <div class="callout-icon">✅</div>
+      <div class="callout-body"><strong>API keys are never synced.</strong> Your AI provider API keys (OpenAI, AssemblyAI, etc.) are stored only in your local browser session memory — never written to Firestore or any server. You'll need to re-enter your API key after restarting Chrome.</div>
+    </div>
+
+    <h2>Signing Out &amp; Reinstalling</h2>
+    <p>To sign out, click <strong>Sign Out</strong> in the dashboard header. Your local data remains intact — signing out only disconnects the cloud sync. To fully reset the extension, uninstall it from Chrome. This removes all locally stored data from <code>chrome.storage.local</code>.</p>
+    <p>If you reinstall or move to a new device, sign in with your account to restore your cloud-synced data, then re-enter your license key if prompted.</p>
+
+    <h2>Lost Your License Key?</h2>
+    <p>If you purchased via Gumroad, check your original purchase email. Gumroad also has a license key lookup at <a href="https://app.gumroad.com/library" target="_blank">app.gumroad.com/library</a>. If you paid with crypto, your license is tied to your transaction — contact <a href="mailto:siam_t_paite@meetingcostpro.com">support</a> with your transaction hash and we'll recover it.</p>
+
+    <div class="docs-nav-footer">
+      <a href="getting-started.html" class="docs-nav-btn">
+        ← Previous
+        <span>Free Version &amp; Trial</span>
+      </a>
+      <a href="ai-insights.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>AI Insights →</span>
+      </a>
+    </div>

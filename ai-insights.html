@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Insights — MeetingCost Docs</title>
+<link rel="stylesheet" href="meetingcost-fonts.css"/>
+<link rel="stylesheet" href="_shared.css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-logo">💸 MeetingCost <span>Docs</span></div>
+  <div class="topnav-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener">Install Extension</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</nav>
+<div class="docs-layout">
+<nav class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Getting Started</div>
+      <a class="sidebar-link" href="overview.html"><span class="icon">📊</span> Overview</a>
+      <a class="sidebar-link" href="getting-started.html"><span class="icon">🚀</span> Free Version & Trial</a>
+      <a class="sidebar-link" href="license.html"><span class="icon">🔑</span> Licenses & Login</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Pro Features</div>
+      <a class="sidebar-link active" href="ai-insights.html"><span class="icon">🤖</span> AI Insights <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="cost-trends.html"><span class="icon">📈</span> Cost Trends <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="recurring-patterns.html"><span class="icon">🔁</span> Recurring Patterns <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="calendar.html"><span class="icon">📅</span> Calendar <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="webhook-alerts.html"><span class="icon">🔔</span> Webhook Alerts <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="team-preview.html"><span class="icon">👥</span> Team Preview <span class="sidebar-pro-badge">PRO</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Data & Settings</div>
+      <a class="sidebar-link" href="meeting-history.html"><span class="icon">📋</span> Meeting History</a>
+      <a class="sidebar-link" href="export.html"><span class="icon">📤</span> Export <span class="sidebar-pro-badge">PRO</span></a>
+      <a class="sidebar-link" href="settings.html"><span class="icon">⚙️</span> Settings</a>
+    </div>
+  </nav>
+  <main class="docs-main">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg">
+<div class="page-header">
+      <div class="page-header-eyebrow">PRO Dashboard</div>
+      <h1>AI Insights <span class="pro-tag">PRO</span></h1>
+      <p>AI-powered transcription, meeting summaries, cost-reduction recommendations, and efficiency scoring. MeetingCost uses a bring-your-own-key (BYOK) model — you connect your own AI provider account, so your data stays at wholesale rates and never passes through MeetingCost servers.</p>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-icon">🔑</div>
+      <div class="callout-body"><strong>BYOK — Bring Your Own Key.</strong> You need an API key from your chosen AI provider. MeetingCost does not mark up or resell AI usage — you pay the provider directly at their published rates. Your API key is never stored in the cloud.</div>
+    </div>
+
+    <h2>Supported AI Providers</h2>
+    <table class="docs-table">
+      <thead><tr><th>Provider</th><th>Best for</th><th>Get a key</th></tr></thead>
+      <tbody>
+        <tr><td>AssemblyAI</td><td>High-accuracy transcription with speaker diarization</td><td><a href="https://www.assemblyai.com" target="_blank">assemblyai.com</a></td></tr>
+        <tr><td>OpenAI Whisper</td><td>Fast transcription + GPT-4 summaries and feedback</td><td><a href="https://platform.openai.com" target="_blank">platform.openai.com</a></td></tr>
+        <tr><td>Deepgram</td><td>Low-latency real-time transcription</td><td><a href="https://deepgram.com" target="_blank">deepgram.com</a></td></tr>
+        <tr><td>Google Gemini</td><td>Integrated Google ecosystem, strong summarization</td><td><a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></td></tr>
+        <tr><td>Hugging Face</td><td>Open-source models, privacy-focused</td><td><a href="https://huggingface.co" target="_blank">huggingface.co</a></td></tr>
+        <tr><td>Rev.ai</td><td>Human-level accuracy, compliance-grade transcription</td><td><a href="https://rev.ai" target="_blank">rev.ai</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2>Setting Up AI</h2>
+    <ol class="step-list">
+      <li>
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Select your AI Provider</strong>
+          In the AI Insights panel, choose your provider from the dropdown. A link to get an API key appears below the dropdown.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Enter your API Key</strong>
+          Paste your API key into the API Key field. The key is stored in your browser session memory only — it is never written to local storage or the cloud and must be re-entered after Chrome restarts.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Test the connection</strong>
+          Click <strong>Test Connection</strong> to verify your key works. A green status indicator confirms the provider is reachable.
+        </div>
+      </li>
+      <li>
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>Enable Auto-Transcribe (optional)</strong>
+          Toggle <strong>Auto-transcribe</strong> to have MeetingCost begin transcribing automatically when a supported meeting is detected. You can also start transcription manually during a meeting.
+        </div>
+      </li>
+    </ol>
+
+    <h2>Starting Transcription</h2>
+    <p>There are two ways to start a transcription session:</p>
+    <ul>
+      <li><strong>Auto-transcribe:</strong> Enable this in settings and transcription starts automatically when you join a meeting on a supported platform.</li>
+      <li><strong>Manual — Start Tab Capture:</strong> Click <strong>Start Tab Capture</strong> in the popup or AI Insights panel while in a meeting. This captures audio from the meeting tab and sends it to your AI provider. Works on Google Meet, Zoom, Teams, and Webex over HTTPS.</li>
+    </ul>
+
+    <div class="callout callout-warning">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body"><strong>Best practice for Tab Capture:</strong> With your meeting tab focused, click the MeetingCost icon in the Chrome toolbar, then click Start Tab Capture. This ensures Chrome grants the correct audio capture permissions. Tab capture does not work on <code>chrome://</code> pages.</div>
+    </div>
+
+    <h2>AI Usage Tracking</h2>
+    <p>The AI Insights panel shows a usage meter tracking how much AI processing you've consumed this month. This uses the limits of your chosen provider's plan — MeetingCost does not impose additional limits. If you set a monthly minutes limit in settings, MeetingCost will warn you when you're approaching it.</p>
+
+    <h2>AI Meeting Feedback</h2>
+    <p>After a meeting ends and transcription is complete, MeetingCost generates structured AI feedback including:</p>
+    <table class="docs-table">
+      <thead><tr><th>Feedback Item</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td>Meeting Summary</td><td>A concise summary of what was discussed, decided, and what action items were identified.</td></tr>
+        <tr><td>Cost Efficiency Score (0–100)</td><td>Was the cost of this meeting justified by its outcomes?</td></tr>
+        <tr><td>Decision Quality Score (0–100)</td><td>How clearly were decisions reached and documented?</td></tr>
+        <tr><td>Action Clarity Score (0–100)</td><td>How specific and assigned were the next steps?</td></tr>
+        <tr><td>Async Replacement Likelihood</td><td>High / Medium / Low — could this meeting have been an email or async update?</td></tr>
+        <tr><td>Cost Reduction Recommendations</td><td>Specific suggestions for reducing cost: fewer participants, shorter duration, moving to async, etc.</td></tr>
+        <tr><td>Waste Signals</td><td>Patterns detected that typically indicate meeting waste — off-topic discussion, unclear agenda, decision loops, etc.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Transcript History</h2>
+    <p>The AI Insights panel keeps a scrollable history of recent meeting transcripts and summaries (up to 80 entries). You can browse previous meetings, review their summaries, and see how efficiency scores have changed over time. Each entry is timestamped and labelled with the meeting type if you've set it.</p>
+
+    <div class="callout callout-success">
+      <div class="callout-icon">🔐</div>
+      <div class="callout-body"><strong>PII Redaction:</strong> If Privacy → Redact PII is enabled, personally identifiable information (names, email addresses, phone numbers) is stripped from transcripts before they are stored or synced. See <a href="/privacy.html">Security &amp; Privacy</a> for details.</div>
+    </div>
+
+    <h2>AI Score Write-Back to Recurring Patterns</h2>
+    <p>When AI feedback is generated for a meeting, MeetingCost automatically detects whether that meeting is part of a recurring pattern (e.g. "client call every Saturday"). If so, the AI ROI score is written back to the <a href="recurring-patterns.html">Recurring Patterns</a> panel, populating the ROI score on that recurring series without any manual action needed.</p>
+
+    <div class="docs-nav-footer">
+      <a href="license.html" class="docs-nav-btn">
+        ← Previous
+        <span>Licenses &amp; Login</span>
+      </a>
+      <a href="cost-trends.html" class="docs-nav-btn" style="text-align:right;">
+        Next
+        <span>Cost Trends →</span>
+      </a>
+    </div>
+    </div>
+  </main>
+</div>
+<footer class="docs-footer">
+  <p>© 2026 MeetingCost. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="https://meetingcostpro.com/">Home</a>
+    <a href="/privacy.html">Security &amp; Privacy</a>
+    <a href="/terms.html">Terms of Service</a>
+    <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+  </div>
+</footer>
+</body>
+</html>
