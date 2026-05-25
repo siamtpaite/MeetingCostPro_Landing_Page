@@ -3,10 +3,6 @@
     {
       "source": "/api/:path*",
       "destination": "https://meetingcost-success-git-main-siamtpaite.vercel.app/api/:path*"
-    },
-    {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
     }
   ]
 }
