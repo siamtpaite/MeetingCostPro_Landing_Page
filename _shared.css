@@ -17,7 +17,7 @@
   --text-dim: rgba(255,255,255,0.35);
   --pro-grad: linear-gradient(90deg, #4ade80, #38bdf8);
   --sidebar-w: 260px;
-  --mono: 'Noto Sans Mono', ui-monospace, monospace;
+  --mono: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
 }
 
 html { scroll-behavior: smooth; }
