@@ -7,15 +7,21 @@
   <link rel="stylesheet" href="meetingcost-fonts.css" />
   <style>
     :root {
-      --bg-main: #0f1115;
-      --bg-card: #171a21;
+      --bg-main: #080b10;
+      --bg-card: #111520;
       --accent: #4ade80;
       --accent-hover: #22c55e;
+      --accent-glow: rgba(74, 222, 128, 0.18);
+      --blue: #38bdf8;
       --crypto: #f59e0b;
       --crypto-hover: #d97706;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
+      --text-main: #f1f5f9;
+      --text-muted: #7c8ba4;
+      --border: #1e2535;
+      --border-bright: #2a3347;
     }
+
+    *, *::before, *::after { box-sizing: border-box; }
 
     body {
       font-family: inherit;
@@ -23,264 +29,508 @@
       color: var(--text-main);
       margin: 0;
       line-height: 1.6;
+      overflow-x: hidden;
     }
 
+    /* ── NAV ── */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 5%;
-      border-bottom: 1px solid #334155;
+      padding: 18px 6%;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 11, 16, 0.85);
+      backdrop-filter: blur(14px);
     }
     .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-size: 1.4rem;
+      font-weight: 800;
       color: white;
       text-decoration: none;
-      letter-spacing: 0.5px;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    .logo-dot { color: var(--accent); }
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
-      margin-left: 24px;
-      font-size: 0.95rem;
+      margin-left: 28px;
+      font-size: 0.9rem;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: white; }
-
-    .hero {
-      text-align: center;
-      padding: 100px 20px 48px 20px;
-      max-width: 880px;
-      margin: 0 auto;
+    .nav-cta {
+      margin-left: 28px !important;
+      background: var(--accent);
+      color: #000 !important;
+      padding: 7px 16px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem !important;
+      transition: background 0.2s, transform 0.15s !important;
     }
+    .nav-cta:hover { background: var(--accent-hover) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero-wrapper {
+      position: relative;
+      padding: 80px 6% 64px;
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 60% 40%, rgba(56, 189, 248, 0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 45% at 15% 55%, rgba(74, 222, 128, 0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .hero-text { padding-right: 8px; }
     .hero .eyebrow {
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 16px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
     }
     .hero h1 {
-      font-size: clamp(2.25rem, 5vw, 3.35rem);
-      margin: 0 0 20px 0;
-      line-height: 1.08;
-      background: linear-gradient(to right, #4ade80, #38bdf8);
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      margin: 0 0 22px 0;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .h1-line1 { color: white; display: block; }
+    .h1-line2 {
+      display: block;
+      background: linear-gradient(100deg, #4ade80 0%, #38bdf8 60%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hero .sub {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--text-muted);
-      margin: 0 auto 36px auto;
-      max-width: 640px;
+      margin: 0 0 36px 0;
+      line-height: 1.7;
+      max-width: 520px;
     }
     .hero-ctas {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
+      gap: 12px;
       align-items: center;
+      margin-bottom: 32px;
     }
     .cta-btn {
-      background-color: var(--accent);
+      background: linear-gradient(135deg, #4ade80, #22c55e);
       color: #000;
-      padding: 14px 28px;
+      padding: 14px 26px;
       border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 0.97rem;
+      font-weight: 800;
       text-decoration: none;
-      transition: background-color 0.2s, transform 0.1s;
-      display: inline-block;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       border: 2px solid transparent;
+      box-shadow: 0 0 24px rgba(74, 222, 128, 0.3), 0 4px 16px rgba(0,0,0,0.3);
     }
     .cta-btn:hover {
-      background-color: var(--accent-hover);
       transform: translateY(-2px);
+      box-shadow: 0 0 36px rgba(74, 222, 128, 0.45), 0 8px 24px rgba(0,0,0,0.4);
     }
     .cta-btn.crypto {
       background: transparent;
       color: var(--crypto);
       border-color: var(--crypto);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.15), 0 4px 12px rgba(0,0,0,0.2);
     }
     .cta-btn.crypto:hover {
-      background: rgba(245, 158, 11, 0.12);
+      background: rgba(245, 158, 11, 0.1);
       color: #fbbf24;
       border-color: #fbbf24;
+      box-shadow: 0 0 28px rgba(245, 158, 11, 0.3), 0 8px 20px rgba(0,0,0,0.3);
+      transform: translateY(-2px);
     }
     .cta-note {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-top: 14px;
+      line-height: 1.6;
     }
-    .cta-note strong { color: var(--text-main); }
+    .cta-note strong { color: #cbd5e1; }
 
     /* Platform badges */
     .platforms {
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid #1e2533;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
     }
     .platforms p {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin: 0 0 14px 0;
+      margin: 0 0 12px 0;
     }
     .platform-badges {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+      gap: 8px;
     }
     .badge {
-      background: #1e2533;
-      border: 1px solid #2a3347;
-      border-radius: 6px;
-      padding: 6px 14px;
-      font-size: 0.82rem;
+      background: rgba(30, 37, 53, 0.8);
+      border: 1px solid var(--border-bright);
+      border-radius: 5px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
       color: var(--text-muted);
       font-weight: 500;
     }
 
-    .section {
-      padding: 56px 5%;
+    /* ── HERO VISUAL ── */
+    .hero-visual {
+      position: relative;
+    }
+    .scene-frame {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px var(--border),
+        0 32px 80px rgba(0, 0, 0, 0.7),
+        0 0 60px rgba(56, 189, 248, 0.06);
+    }
+    .scene-frame svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    /* Floating cost pill */
+    .cost-pill {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      background: linear-gradient(135deg, #111520, #1a2035);
+      border: 1px solid rgba(74, 222, 128, 0.4);
+      border-radius: 12px;
+      padding: 10px 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 24px rgba(74, 222, 128, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      z-index: 10;
+      min-width: 140px;
+    }
+    .cost-pill .pill-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .cost-pill .pill-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+    .cost-pill .pill-ticker {
+      font-size: 0.68rem;
+      color: rgba(74, 222, 128, 0.65);
+    }
+    /* Floating insight card */
+    .insight-card {
+      position: absolute;
+      bottom: -14px;
+      left: -14px;
+      background: linear-gradient(135deg, #111520, #161d2e);
+      border: 1px solid var(--border-bright);
+      border-radius: 10px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 10;
+      max-width: 180px;
+    }
+    .insight-card .ic-icon { font-size: 1.1rem; margin-bottom: 4px; }
+    .insight-card .ic-label {
+      font-size: 0.67rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .insight-card .ic-value {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
       max-width: 960px;
+      margin: 64px auto;
+    }
+    .stat {
+      padding: 30px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      background: var(--bg-card);
+      position: relative;
+    }
+    .stat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(74,222,128,0.4), transparent);
+    }
+    .stat:last-child { border-right: none; }
+    .stat .num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+      letter-spacing: -0.5px;
+    }
+    .stat .label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 64px 6%;
+      max-width: 1000px;
       margin: 0 auto;
     }
     .section h2 {
-      font-size: 1.75rem;
-      margin: 0 0 16px 0;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin: 0 0 14px 0;
       line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.3px;
     }
     .section .lead {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      margin: 0 0 24px 0;
+      font-size: 1.05rem;
+      margin: 0 0 28px 0;
       max-width: 720px;
+      line-height: 1.7;
     }
     .problem {
-      border-top: 1px solid #334155;
-      border-bottom: 1px solid #334155;
-      background: linear-gradient(180deg, rgba(23, 26, 33, 0.5) 0%, transparent 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(17, 21, 32, 0.6) 0%, transparent 100%);
+      border-radius: 0;
     }
     .problem ul {
       margin: 0;
-      padding-left: 1.2rem;
-      color: var(--text-muted);
+      padding-left: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    .problem li { margin-bottom: 10px; }
+    .problem li {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      position: relative;
+      padding-left: 20px;
+    }
+    .problem li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #ef4444, rgba(239,68,68,0.3));
+      border-radius: 3px 0 0 3px;
+    }
     .problem li strong { color: var(--text-main); }
 
+    /* Comparison tables */
     .compare-wrap {
       overflow-x: auto;
       margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
     }
     table.compare {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       min-width: 520px;
     }
     table.compare th,
     table.compare td {
-      padding: 14px 16px;
+      padding: 13px 16px;
       text-align: left;
-      border: 1px solid #2a2f3a;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
       vertical-align: top;
     }
     table.compare thead th {
-      background: var(--bg-card);
+      background: #0d1018;
       color: white;
       font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      border-bottom: 2px solid var(--border-bright);
     }
+    table.compare tbody tr:last-child td,
+    table.compare tbody tr:last-child th { border-bottom: none; }
+    table.compare tr > *:last-child { border-right: none; }
     table.compare tbody th[scope="row"] {
-      background: #141820;
-      color: var(--text-muted);
+      background: rgba(13, 16, 24, 0.6);
+      color: #8899b4;
       font-weight: 600;
       width: 22%;
+      font-size: 0.85rem;
     }
     table.compare .trad {
-      background: rgba(148, 163, 184, 0.06);
+      background: rgba(15, 20, 30, 0.4);
       color: var(--text-muted);
     }
     table.compare .mc {
-      background: rgba(74, 222, 128, 0.06);
+      background: rgba(74, 222, 128, 0.04);
       color: var(--text-main);
     }
-    table.compare .check {
-      color: var(--accent);
-      font-weight: 700;
-    }
-    table.compare .cross {
-      color: #ef4444;
-      font-weight: 700;
-    }
+    table.compare .check { color: var(--accent); font-weight: 700; }
+    table.compare .cross { color: #ef4444; font-weight: 700; }
 
+    /* Sovereign */
     .sovereign {
       text-align: center;
       max-width: 720px;
     }
     .sovereign h2 { text-align: center; }
     .sovereign .lead { margin-left: auto; margin-right: auto; text-align: left; }
-    .sovereign p {
-      color: var(--text-muted);
-      text-align: left;
-    }
+    .sovereign p { color: var(--text-muted); text-align: left; }
 
+    /* Final CTA */
     .final-cta {
       text-align: center;
-      padding: 72px 5% 80px 5%;
-      border-top: 1px solid #334155;
+      padding: 80px 6% 88px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 80%, rgba(74,222,128,0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
     .final-cta h2 {
-      font-size: clamp(1.6rem, 3vw, 2.1rem);
-      margin: 0 0 12px 0;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      margin: 0 0 14px 0;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
     .final-cta p {
       color: var(--text-muted);
       max-width: 560px;
-      margin: 0 auto 28px auto;
+      margin: 0 auto 32px;
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
+    .final-cta .hero-ctas { justify-content: center; }
 
-    /* Feature grid — expanded */
+    /* Features */
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      padding: 48px 5% 24px 5%;
-      max-width: 1100px;
+      gap: 20px;
+      padding: 48px 6% 32px;
+      max-width: 1120px;
       margin: 0 auto;
     }
     .feature-card {
-      background-color: var(--bg-card);
-      padding: 28px;
+      background: var(--bg-card);
+      padding: 24px 26px;
       border-radius: 12px;
-      border: 1px solid #2a2f3a;
-      transition: border-color 0.2s, transform 0.2s;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(74,222,128,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .feature-card:hover {
-      border-color: #3d4f6b;
-      transform: translateY(-2px);
+      border-color: rgba(74,222,128,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 20px rgba(74,222,128,0.06);
     }
+    .feature-card:hover::after { opacity: 1; }
     .feature-card .icon {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       margin-bottom: 12px;
       display: block;
     }
     .feature-card h3 {
       color: white;
-      margin: 0 0 10px 0;
-      font-size: 1.05rem;
+      margin: 0 0 9px 0;
+      font-size: 1rem;
+      font-weight: 700;
     }
     .feature-card p {
       color: var(--text-muted);
       margin: 0;
-      font-size: 0.92rem;
-      line-height: 1.55;
+      font-size: 0.88rem;
+      line-height: 1.6;
     }
 
     /* PRO badge */
@@ -288,105 +538,378 @@
       display: inline-block;
       background: linear-gradient(90deg, #4ade80, #38bdf8);
       color: #000;
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 4px;
-      margin-left: 8px;
+      margin-left: 7px;
       vertical-align: middle;
-    }
-
-    /* Stats row */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border: 1px solid #2a2f3a;
-      border-radius: 12px;
-      overflow: hidden;
-      max-width: 960px;
-      margin: 48px auto;
-    }
-    .stat {
-      padding: 32px 24px;
-      text-align: center;
-      border-right: 1px solid #2a2f3a;
-      background: var(--bg-card);
-    }
-    .stat:last-child { border-right: none; }
-    .stat .num {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent);
-      display: block;
-    }
-    .stat .label {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-      display: block;
     }
 
     footer {
       text-align: center;
       padding: 40px 20px;
       color: var(--text-muted);
-      border-top: 1px solid #334155;
+      border-top: 1px solid var(--border);
+      font-size: 0.88rem;
     }
-    footer .footer-links { margin-top: 16px; }
+    footer .footer-links { margin-top: 14px; }
     footer a {
       color: var(--text-muted);
       text-decoration: none;
-      margin: 0 15px;
+      margin: 0 14px;
+      transition: color 0.2s;
     }
-    footer a:hover { color: white; text-decoration: underline; }
+    footer a:hover { color: white; }
 
-    @media (max-width: 600px) {
-      nav { flex-direction: column; gap: 15px; }
-      .nav-links { margin-top: 10px; }
-      .nav-links a { margin: 0 10px; }
-      .hero { padding-top: 72px; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero-text { padding-right: 0; }
+      .cost-pill { top: 12px; right: 12px; }
+      .insight-card { bottom: 12px; left: 12px; }
+    }
+    @media (max-width: 680px) {
+      nav { flex-direction: column; gap: 14px; }
+      .nav-links { margin-top: 6px; }
+      .nav-links a { margin: 0 8px; font-size: 0.82rem; }
+      .hero-wrapper { padding: 56px 5% 48px; }
       .stats { grid-template-columns: repeat(2, 1fr); }
-      .stat { border-right: none; border-bottom: 1px solid #2a2f3a; }
-      .stat:nth-child(odd) { border-right: 1px solid #2a2f3a; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
       .stat:last-child { border-bottom: none; }
+      .problem ul { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a href="/" class="logo">MeetingCost</a>
+    <a href="/" class="logo">MeetingCost<span class="logo-dot">.</span></a>
     <div class="nav-links">
       <a href="/privacy.html">Security &amp; Privacy</a>
       <a href="/overview.html">Docs</a>
-      <a href="/terms.html">Terms of Service</a>
+      <a href="/terms.html">Terms</a>
       <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+      <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer" class="nav-cta">Install Free Trial</a>
     </div>
   </nav>
 
   <main>
-    <section class="hero">
-      <p class="eyebrow">The new way to manage meeting costs</p>
-      <h1>Stop the bleed. Price the room.</h1>
-      <p class="sub">MeetingCost is a sovereign browser extension that turns every call into a live balance sheet—so your team feels the cost of "just five more minutes" before it hits your runway.</p>
-      <div class="hero-ctas">
-        <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer" class="cta-btn">Get MeetingCost — $19.99/mo</a>
-        <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer" class="cta-btn crypto">Pay with Crypto — $15.99/mo</a>
-      </div>
-      <p class="cta-note">Monthly · $19.99/mo or $15.99/mo crypto (USDT on Tron · USDC on Solana · USDC on Base) &nbsp;·&nbsp; Yearly · $199.99/yr or $159.99/yr crypto (USDT on Tron · USDC on Solana · USDC on Base)<br>Cancel anytime. Save 20% with crypto.</p>
+    <!-- ══ HERO ══ -->
+    <div class="hero-wrapper">
+      <div class="hero-bg-glow"></div>
+      <div class="hero-grid">
 
-      <div class="platforms">
-        <p>Works on every major meeting platform</p>
-        <div class="platform-badges">
-          <span class="badge">Google Meet</span>
-          <span class="badge">Zoom</span>
-          <span class="badge">Microsoft Teams</span>
-          <span class="badge">Webex</span>
+        <!-- Left: text -->
+        <div class="hero-text hero">
+          <p class="eyebrow"><span class="eyebrow-dot"></span>The new way to manage meeting costs</p>
+          <h1>
+            <span class="h1-line1">Stop the bleed.</span>
+            <span class="h1-line2">Price the room.</span>
+          </h1>
+          <p class="sub">A sovereign browser extension that turns every call into a live balance sheet — so your team feels the cost of "just five more minutes" before it hits your runway.</p>
+          <div class="hero-ctas">
+            <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer" class="cta-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Get MeetingCost — $19.99/mo
+            </a>
+            <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer" class="cta-btn crypto">₿ Pay with Crypto — $15.99/mo</a>
+          </div>
+          <p class="cta-note">Monthly · $19.99/mo or $15.99/mo crypto (USDT · USDC) &nbsp;·&nbsp; Yearly · $199.99/yr or $159.99/yr crypto<br><strong>Save 20% with crypto.</strong> Cancel anytime.</p>
+
+          <div class="platforms">
+            <p>Works on every major meeting platform</p>
+            <div class="platform-badges">
+              <span class="badge">Google Meet</span>
+              <span class="badge">Zoom</span>
+              <span class="badge">Microsoft Teams</span>
+              <span class="badge">Webex</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <!-- Right: professional-in-meeting illustration -->
+        <div class="hero-visual">
+          <!-- Floating live cost pill -->
+          <div class="cost-pill">
+            <span class="pill-label">Meeting Cost</span>
+            <span class="pill-amount">$247.83</span>
+            <span class="pill-ticker">↑ $0.42 / sec</span>
+          </div>
+
+          <div class="scene-frame">
+            <svg viewBox="0 0 680 520" xmlns="http://www.w3.org/2000/svg" style="background:#0d1018;">
+              <!-- Room background -->
+              <defs>
+                <linearGradient id="roomGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#131825"/>
+                  <stop offset="100%" stop-color="#0a0d14"/>
+                </linearGradient>
+                <linearGradient id="deskGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1c2235"/>
+                  <stop offset="100%" stop-color="#141824"/>
+                </linearGradient>
+                <linearGradient id="screenGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0e1420"/>
+                  <stop offset="100%" stop-color="#0a0f1a"/>
+                </linearGradient>
+                <linearGradient id="accentLine" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#4ade80" stop-opacity="0"/>
+                  <stop offset="50%" stop-color="#4ade80" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="windowGlow" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1a3a5c" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="#0d1a2e" stop-opacity="0.2"/>
+                </linearGradient>
+                <filter id="screenGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+                <filter id="softGlow">
+                  <feGaussianBlur stdDeviation="6" result="blur"/>
+                  <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                </filter>
+                <clipPath id="screenClip">
+                  <rect x="160" y="80" width="390" height="240" rx="4"/>
+                </clipPath>
+              </defs>
+
+              <!-- Room bg -->
+              <rect width="680" height="520" fill="url(#roomGrad)"/>
+
+              <!-- Window / ambient light panel top-left -->
+              <rect x="20" y="20" width="140" height="180" rx="8" fill="url(#windowGlow)"/>
+              <rect x="20" y="20" width="140" height="180" rx="8" fill="none" stroke="#1e3a5a" stroke-width="1"/>
+              <line x1="90" y1="20" x2="90" y2="200" stroke="#1e3a5a" stroke-width="1"/>
+              <line x1="20" y1="110" x2="160" y2="110" stroke="#1e3a5a" stroke-width="1"/>
+
+              <!-- Ambient light spill from window -->
+              <ellipse cx="90" cy="200" rx="80" ry="30" fill="#1a3a5c" opacity="0.15"/>
+
+              <!-- Desk surface -->
+              <path d="M 60 370 L 620 370 L 640 520 L 40 520 Z" fill="url(#deskGrad)"/>
+              <line x1="60" y1="370" x2="620" y2="370" stroke="#2a3347" stroke-width="1.5"/>
+
+              <!-- ── LAPTOP ── -->
+              <!-- Laptop base / keyboard -->
+              <path d="M 180 368 L 500 368 L 510 400 L 170 400 Z" fill="#1a1f2e" stroke="#2a3347" stroke-width="1"/>
+              <!-- Keyboard surface detail -->
+              <rect x="200" y="372" width="280" height="22" rx="2" fill="#141824" opacity="0.8"/>
+              <!-- Trackpad -->
+              <rect x="305" y="374" width="70" height="14" rx="3" fill="#1e2535" stroke="#2a3347" stroke-width="0.5"/>
+              <!-- Key rows hint -->
+              <rect x="210" y="374" width="85" height="3" rx="1" fill="#252d40" opacity="0.6"/>
+              <rect x="210" y="379" width="85" height="3" rx="1" fill="#252d40" opacity="0.6"/>
+              <rect x="210" y="384" width="85" height="3" rx="1" fill="#252d40" opacity="0.6"/>
+
+              <!-- Laptop lid -->
+              <path d="M 160 82 Q 160 78 165 78 L 515 78 Q 520 78 520 82 L 520 368 L 160 368 Z" fill="#161c2a" stroke="#2a3347" stroke-width="1.5"/>
+
+              <!-- Screen bezel -->
+              <rect x="168" y="86" width="344" height="270" rx="3" fill="#0d1118"/>
+
+              <!-- ── SCREEN CONTENT: MeetingCost Pro interface ── -->
+              <g clip-path="url(#screenClip)">
+                <rect x="160" y="80" width="390" height="240" fill="#0e1420"/>
+
+                <!-- Top bar -->
+                <rect x="160" y="80" width="390" height="32" fill="#0d1118"/>
+                <circle cx="176" cy="96" r="5" fill="#ef4444" opacity="0.8"/>
+                <circle cx="192" cy="96" r="5" fill="#f59e0b" opacity="0.8"/>
+                <circle cx="208" cy="96" r="5" fill="#4ade80" opacity="0.8"/>
+                <!-- Tab bar -->
+                <rect x="220" y="85" width="100" height="22" rx="3" fill="#141d2e"/>
+                <text x="270" y="99" text-anchor="middle" font-family="monospace" font-size="9" fill="#7c8ba4">MeetingCost Pro</text>
+                <!-- URL bar hint -->
+                <rect x="330" y="87" width="180" height="18" rx="3" fill="#111825"/>
+                <text x="340" y="99" font-family="monospace" font-size="8" fill="#3d4f6b">meetingcostpro.com/overview</text>
+
+                <!-- App chrome / sidebar -->
+                <rect x="160" y="112" width="56" height="208" fill="#0a0d14"/>
+                <!-- Sidebar icons -->
+                <rect x="173" y="124" width="30" height="24" rx="4" fill="#1a2235"/>
+                <text x="188" y="139" text-anchor="middle" font-size="11">📊</text>
+                <rect x="173" y="154" width="30" height="24" rx="4" fill="rgba(74,222,128,0.15)" stroke="rgba(74,222,128,0.3)" stroke-width="1"/>
+                <text x="188" y="169" text-anchor="middle" font-size="11">⏱</text>
+                <rect x="173" y="184" width="30" height="24" rx="4" fill="#1a2235"/>
+                <text x="188" y="199" text-anchor="middle" font-size="11">📅</text>
+                <rect x="173" y="214" width="30" height="24" rx="4" fill="#1a2235"/>
+                <text x="188" y="229" text-anchor="middle" font-size="11">🤖</text>
+                <rect x="173" y="244" width="30" height="24" rx="4" fill="#1a2235"/>
+                <text x="188" y="259" text-anchor="middle" font-size="11">🔔</text>
+                <rect x="173" y="278" width="30" height="24" rx="4" fill="#1a2235"/>
+                <text x="188" y="293" text-anchor="middle" font-size="11">⚙</text>
+
+                <!-- Main content area -->
+                <!-- Header bar in app -->
+                <rect x="216" y="112" width="334" height="36" fill="#111825"/>
+                <text x="228" y="127" font-family="sans-serif" font-size="10" fill="#f1f5f9" font-weight="bold">Live Meeting Overview</text>
+                <!-- Status pill in header -->
+                <rect x="440" y="118" width="60" height="16" rx="8" fill="rgba(74,222,128,0.18)" stroke="rgba(74,222,128,0.5)" stroke-width="0.8"/>
+                <circle cx="452" cy="126" r="3" fill="#4ade80"/>
+                <text x="458" y="130" font-family="sans-serif" font-size="7.5" fill="#4ade80">LIVE</text>
+                <text x="476" y="130" font-family="sans-serif" font-size="7.5" fill="#4ade80"> 32:14</text>
+
+                <!-- ── LIVE COST TICKER (main feature card) ── -->
+                <rect x="220" y="154" width="156" height="72" rx="6" fill="#111825" stroke="rgba(74,222,128,0.3)" stroke-width="1"/>
+                <!-- Ticker glow -->
+                <rect x="220" y="154" width="156" height="2" rx="1" fill="url(#accentLine)"/>
+                <text x="230" y="167" font-family="sans-serif" font-size="7.5" fill="#7c8ba4" letter-spacing="0.5">MEETING COST</text>
+                <text x="230" y="188" font-family="monospace" font-size="22" fill="#4ade80" font-weight="bold">$247.83</text>
+                <text x="230" y="201" font-family="sans-serif" font-size="7.5" fill="rgba(74,222,128,0.65)">↑ $0.42 per second · 6 participants</text>
+                <text x="230" y="215" font-family="sans-serif" font-size="7" fill="#3d4f6b">Q3 Engineering Sprint Planning</text>
+
+                <!-- Participants card -->
+                <rect x="384" y="154" width="166" height="72" rx="6" fill="#111825" stroke="#1e2535" stroke-width="1"/>
+                <text x="394" y="167" font-family="sans-serif" font-size="7.5" fill="#7c8ba4" letter-spacing="0.5">PARTICIPANTS</text>
+                <!-- Avatar row -->
+                <circle cx="398" cy="185" r="11" fill="#1e3a5c" stroke="#38bdf8" stroke-width="1.5"/>
+                <text x="398" y="189" text-anchor="middle" font-size="9">JS</text>
+                <circle cx="416" cy="185" r="11" fill="#1a3528" stroke="#4ade80" stroke-width="1.5"/>
+                <text x="416" y="189" text-anchor="middle" font-size="9">KL</text>
+                <circle cx="434" cy="185" r="11" fill="#3a1e1e" stroke="#f59e0b" stroke-width="1.5"/>
+                <text x="434" y="189" text-anchor="middle" font-size="9">MR</text>
+                <circle cx="452" cy="185" r="11" fill="#1e2a3a" stroke="#94a3b8" stroke-width="1.5"/>
+                <text x="452" y="189" text-anchor="middle" font-size="9">AN</text>
+                <circle cx="470" cy="185" r="11" fill="#2a1e3a" stroke="#a78bfa" stroke-width="1.5"/>
+                <text x="470" y="189" text-anchor="middle" font-size="9">TW</text>
+                <rect x="484" y="174" width="24" height="22" rx="11" fill="#1e2535" stroke="#2a3347" stroke-width="1"/>
+                <text x="496" y="189" text-anchor="middle" font-size="9" fill="#7c8ba4">+1</text>
+                <!-- Avg rate -->
+                <text x="394" y="213" font-family="sans-serif" font-size="7" fill="#7c8ba4">Avg rate: <tspan fill="#f1f5f9">$312/hr · </tspan>Proj. total: <tspan fill="#f59e0b">$624</tspan></text>
+
+                <!-- Mini chart area -->
+                <rect x="220" y="233" width="156" height="55" rx="6" fill="#111825" stroke="#1e2535" stroke-width="1"/>
+                <text x="230" y="246" font-family="sans-serif" font-size="7.5" fill="#7c8ba4" letter-spacing="0.5">COST TREND (7 DAYS)</text>
+                <!-- Simple bar chart -->
+                <rect x="232" y="275" width="12" height="18" rx="2" fill="rgba(74,222,128,0.25)"/>
+                <rect x="249" y="268" width="12" height="25" rx="2" fill="rgba(74,222,128,0.35)"/>
+                <rect x="266" y="260" width="12" height="33" rx="2" fill="rgba(74,222,128,0.45)"/>
+                <rect x="283" y="271" width="12" height="22" rx="2" fill="rgba(74,222,128,0.35)"/>
+                <rect x="300" y="255" width="12" height="38" rx="2" fill="rgba(74,222,128,0.55)"/>
+                <rect x="317" y="263" width="12" height="30" rx="2" fill="rgba(74,222,128,0.45)"/>
+                <rect x="334" y="249" width="12" height="44" rx="2" fill="#4ade80"/>
+                <line x1="228" y1="293" x2="360" y2="293" stroke="#1e2535" stroke-width="0.8"/>
+
+                <!-- AI Insights card -->
+                <rect x="384" y="233" width="166" height="55" rx="6" fill="#111825" stroke="#1e2535" stroke-width="1"/>
+                <text x="394" y="246" font-family="sans-serif" font-size="7.5" fill="#7c8ba4" letter-spacing="0.5">AI INSIGHTS</text>
+                <rect x="394" y="251" width="148" height="30" rx="4" fill="rgba(56,189,248,0.06)" stroke="rgba(56,189,248,0.2)" stroke-width="0.8"/>
+                <text x="400" y="263" font-family="sans-serif" font-size="7" fill="#94a3b8">⚡ This meeting is 34% over budget.</text>
+                <text x="400" y="274" font-family="sans-serif" font-size="7" fill="#94a3b8">Consider cutting 15 min to save $78.</text>
+
+              </g>
+              <!-- Screen reflection/glare -->
+              <path d="M 168 88 L 300 88 L 280 160 L 168 160 Z" fill="white" opacity="0.015"/>
+
+              <!-- Laptop chin strip -->
+              <rect x="160" y="352" width="360" height="16" rx="0" fill="#131924" stroke="#2a3347" stroke-width="0.5"/>
+
+              <!-- ── PROFESSIONAL PERSON ── -->
+              <!-- Chair back -->
+              <path d="M 96 280 Q 90 240 100 200 L 120 200 Q 112 240 118 280 Z" fill="#1a1f2e" stroke="#252d40" stroke-width="1"/>
+              <path d="M 100 200 Q 108 180 120 175 L 118 200 Z" fill="#1a1f2e"/>
+
+              <!-- Body / torso -->
+              <!-- Jacket -->
+              <path d="M 76 340 Q 70 300 78 270 Q 88 250 108 245 Q 128 250 138 270 Q 146 300 140 340 Z" fill="#1e2640"/>
+              <!-- Shirt collar / tie area -->
+              <path d="M 96 250 L 108 260 L 120 250 L 116 245 L 108 248 L 100 245 Z" fill="#f1f5f9" opacity="0.9"/>
+              <!-- Tie -->
+              <path d="M 106 258 L 108 276 L 110 258 L 108 254 Z" fill="#4ade80" opacity="0.8"/>
+              <!-- Jacket lapels -->
+              <path d="M 78 270 Q 88 256 100 252 L 96 278 Q 84 275 78 270 Z" fill="#252d44"/>
+              <path d="M 138 270 Q 128 256 116 252 L 120 278 Q 132 275 138 270 Z" fill="#252d44"/>
+              <!-- Jacket button line -->
+              <circle cx="108" cy="285" r="2" fill="#2a3550"/>
+              <circle cx="108" cy="296" r="2" fill="#2a3550"/>
+              <!-- Left arm / sleeve — reaching toward laptop -->
+              <path d="M 80 275 Q 68 295 76 340 L 90 340 Q 84 310 94 285 Z" fill="#1e2640" stroke="#252d44" stroke-width="0.5"/>
+              <!-- Right arm pointing at screen -->
+              <path d="M 136 275 Q 150 285 158 320 L 148 325 Q 142 298 132 285 Z" fill="#1e2640" stroke="#252d44" stroke-width="0.5"/>
+              <!-- Right hand near laptop -->
+              <ellipse cx="153" cy="328" rx="9" ry="6" fill="#c8a882" transform="rotate(-15 153 328)"/>
+
+              <!-- Neck -->
+              <rect x="102" y="232" width="12" height="18" rx="4" fill="#c8a882"/>
+
+              <!-- Head -->
+              <ellipse cx="108" cy="218" rx="22" ry="24" fill="#c8a882"/>
+              <!-- Hair -->
+              <path d="M 86 210 Q 88 190 108 188 Q 128 190 130 210 Q 120 202 108 204 Q 96 202 86 210 Z" fill="#3d2b1f"/>
+              <!-- Ear -->
+              <ellipse cx="86" cy="220" rx="4" ry="6" fill="#bf9c75"/>
+              <!-- Ear right (hidden, partly) -->
+              <ellipse cx="130" cy="220" rx="4" ry="6" fill="#bf9c75"/>
+
+              <!-- Glasses -->
+              <rect x="93" y="214" width="14" height="10" rx="4" fill="none" stroke="#2a3550" stroke-width="1.5" opacity="0.7"/>
+              <rect x="110" y="214" width="14" height="10" rx="4" fill="none" stroke="#2a3550" stroke-width="1.5" opacity="0.7"/>
+              <line x1="107" y1="218" x2="110" y2="218" stroke="#2a3550" stroke-width="1.5" opacity="0.7"/>
+              <line x1="86" y1="218" x2="93" y2="218" stroke="#2a3550" stroke-width="1.5" opacity="0.5"/>
+              <line x1="124" y1="218" x2="130" y2="218" stroke="#2a3550" stroke-width="1.5" opacity="0.5"/>
+
+              <!-- Eyes (looking at screen) -->
+              <ellipse cx="100" cy="219" rx="3.5" ry="3" fill="#3d2b1f"/>
+              <ellipse cx="116" cy="219" rx="3.5" ry="3" fill="#3d2b1f"/>
+              <!-- Eye shine -->
+              <circle cx="101.5" cy="218" r="1" fill="white" opacity="0.5"/>
+              <circle cx="117.5" cy="218" r="1" fill="white" opacity="0.5"/>
+
+              <!-- Subtle screen-glow on face -->
+              <ellipse cx="108" cy="218" rx="22" ry="24" fill="#38bdf8" opacity="0.04"/>
+
+              <!-- ── DESK ITEMS ── -->
+              <!-- Notepad -->
+              <rect x="30" y="358" width="56" height="44" rx="3" fill="#1a2030" stroke="#2a3347" stroke-width="1"/>
+              <rect x="30" y="358" width="56" height="6" rx="3" fill="#4ade80" opacity="0.5"/>
+              <line x1="37" y1="374" x2="79" y2="374" stroke="#2a3347" stroke-width="0.8"/>
+              <line x1="37" y1="381" x2="79" y2="381" stroke="#2a3347" stroke-width="0.8"/>
+              <line x1="37" y1="388" x2="65" y2="388" stroke="#2a3347" stroke-width="0.8"/>
+              <!-- Pen -->
+              <rect x="86" y="358" width="4" height="38" rx="2" fill="#38bdf8" opacity="0.7"/>
+              <polygon points="86,396 90,396 88,404" fill="#38bdf8" opacity="0.5"/>
+
+              <!-- Coffee mug -->
+              <rect x="590" y="348" width="30" height="34" rx="4" fill="#1e2535" stroke="#2a3347" stroke-width="1"/>
+              <path d="M 620 358 Q 630 358 630 365 Q 630 372 620 372" fill="none" stroke="#2a3347" stroke-width="1.5"/>
+              <!-- Coffee surface -->
+              <ellipse cx="605" cy="350" rx="15" ry="4" fill="#2d1a0e"/>
+              <!-- Steam -->
+              <path d="M 600 344 Q 598 338 602 332" fill="none" stroke="#7c8ba4" stroke-width="1" opacity="0.4"/>
+              <path d="M 608 344 Q 606 336 610 330" fill="none" stroke="#7c8ba4" stroke-width="1" opacity="0.4"/>
+
+              <!-- Small phone on desk -->
+              <rect x="540" y="360" width="22" height="38" rx="3" fill="#141824" stroke="#2a3347" stroke-width="1"/>
+              <rect x="543" y="365" width="16" height="26" rx="1" fill="#0d1118"/>
+              <circle cx="551" cy="395" r="2.5" fill="#1e2535"/>
+              <!-- Phone notification dot -->
+              <circle cx="557" cy="363" r="3" fill="#4ade80"/>
+
+              <!-- Meeting screen glow on desk -->
+              <ellipse cx="340" cy="372" rx="120" ry="8" fill="#38bdf8" opacity="0.04"/>
+
+              <!-- Screen ambient glow -->
+              <rect x="160" y="80" width="390" height="240" rx="4" fill="none" stroke="rgba(56,189,248,0.25)" stroke-width="1.5" filter="url(#screenGlow)"/>
+
+              <!-- Bottom accent line on desk edge -->
+              <line x1="60" y1="370" x2="620" y2="370" stroke="url(#accentLine)" stroke-width="1.5" opacity="0.5"/>
+            </svg>
+          </div>
+
+          <!-- Floating insight card -->
+          <div class="insight-card">
+            <div class="ic-icon">⚡</div>
+            <div class="ic-label">AI Insight</div>
+            <div class="ic-value">Cut 15 min → save $78</div>
+          </div>
+        </div><!-- /hero-visual -->
+
+      </div><!-- /hero-grid -->
+    </div><!-- /hero-wrapper -->
 
     <!-- Stats row -->
     <div class="stats">
