@@ -25,7 +25,7 @@
 
     body {
       font-family: inherit;
-      background-color: var(--bg-main);
+      background-color: transparent;
       color: var(--text-main);
       margin: 0;
       line-height: 1.6;
@@ -581,9 +581,46 @@
       .stat:last-child { border-bottom: none; }
       .problem ul { grid-template-columns: 1fr; }
     }
+
+    /* ── Video background ── */
+    #mc-video-bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      background-color: var(--bg-main);
+    }
+
+    #mc-video-bg-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    #mc-video-bg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      will-change: transform;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Fullscreen fixed video background -->
+  <div id="mc-video-bg-wrap">
+    <video id="mc-video-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+      <source src="videos/BackgroundMeetingCost.mp4" type="video/mp4">
+    </video>
+  </div>
 
   <nav>
     <a href="/" class="logo">MeetingCost<span class="logo-dot">.</span></a>
