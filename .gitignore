@@ -1,2 +1,9 @@
 .vercel
 .env*.local
+.DS_Store
+
+# Source video assets from the background-video experiment. Kept locally for
+# reference; the site does not reference them and they are far too large to
+# belong in git.
+Background/
+videos/
