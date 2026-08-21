@@ -16,9 +16,13 @@
 (function () {
   "use strict";
 
-  const API_BASE = "https://meetingcostpro.com";
-  const POLL_URL = `${API_BASE}/api/poll-payment`;
-  const REGISTER_URL = `${API_BASE}/api/register-crypto-license`;
+  // Same-origin paths on purpose. vercel.json rewrites /api/* to the backend
+  // project server-side, so these never become cross-origin requests. Absolute
+  // https://meetingcostpro.com/... URLs would work in production and fail on
+  // every preview deployment, because the API pins Access-Control-Allow-Origin
+  // to the production host and CORS_ALLOW_ORIGINS holds one origin, not a list.
+  const POLL_URL = "/api/poll-payment";
+  const REGISTER_URL = "/api/register-crypto-license";
 
   const USD_MONTHLY = 15.99;
   const USD_YEARLY = 159.99;
