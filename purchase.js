@@ -26,6 +26,13 @@
 
   const USD_MONTHLY = 15.99;
   const USD_YEARLY = 159.99;
+  const CARD_MONTHLY = 19.99;
+  const CARD_YEARLY = 199.99;
+  /** Same Gumroad products the extension's purchase page links to. */
+  const GUMROAD_URL = {
+    monthly: "https://siamtpaite.gumroad.com/l/xjguw",
+    yearly: "https://siamtpaite.gumroad.com/l/uliny",
+  };
   /** Watcher lifetime, matched to the extension's original 35-minute window. */
   const SESSION_MS = 35 * 60 * 1000;
   /** Tolerance for the buyer's clock running ahead of the chain's timestamps. */
@@ -39,6 +46,16 @@
 
   // ── Element handles ────────────────────────────────────────────────────────
   const els = {
+    methodCardBtn: $("method-card-btn"),
+    methodCryptoBtn: $("method-crypto-btn"),
+    cardPanel: $("card-panel"),
+    cryptoPanel: $("crypto-panel"),
+    gumroadLink: $("gumroad-link"),
+    promoBadge: $("promo-badge"),
+    priceMonthly: $("price-monthly"),
+    priceYearly: $("price-yearly"),
+    wasMonthly: $("was-monthly"),
+    wasYearly: $("was-yearly"),
     signedOut: $("auth-signed-out"),
     signedIn: $("auth-signed-in"),
     signedInEmail: $("signed-in-email"),
@@ -73,6 +90,7 @@
   // ── State ──────────────────────────────────────────────────────────────────
   let authMode = "signin";
   let selectedPlan = "monthly";
+  let selectedMethod = "card";
   let session = null;
   let pollTimer = null;
   let expiryTimer = null;
@@ -512,6 +530,40 @@
     els.planYearly?.classList.toggle("selected", isYearly);
     els.planMonthly?.setAttribute("aria-pressed", String(!isYearly));
     els.planYearly?.setAttribute("aria-pressed", String(isYearly));
+    if (els.gumroadLink) els.gumroadLink.href = GUMROAD_URL[selectedPlan];
+  }
+
+  /**
+   * Card and crypto are priced differently (crypto is 20% off), so the plan
+   * cards restate their prices when the method changes rather than showing one
+   * price and charging another.
+   */
+  function selectMethod(method) {
+    selectedMethod = method === "crypto" ? "crypto" : "card";
+    const isCrypto = selectedMethod === "crypto";
+
+    document.body.setAttribute("data-method", selectedMethod);
+    els.methodCardBtn?.classList.toggle("selected", !isCrypto);
+    els.methodCryptoBtn?.classList.toggle("selected", isCrypto);
+    els.methodCardBtn?.setAttribute("aria-pressed", String(!isCrypto));
+    els.methodCryptoBtn?.setAttribute("aria-pressed", String(isCrypto));
+
+    if (els.priceMonthly) {
+      els.priceMonthly.textContent = `$${(isCrypto ? USD_MONTHLY : CARD_MONTHLY).toFixed(2)}`;
+    }
+    if (els.priceYearly) {
+      els.priceYearly.textContent = `$${(isCrypto ? USD_YEARLY : CARD_YEARLY).toFixed(2)}`;
+    }
+    els.wasMonthly?.classList.toggle("is-hidden", !isCrypto);
+    els.wasYearly?.classList.toggle("is-hidden", !isCrypto);
+    els.promoBadge?.classList.toggle("is-hidden", !isCrypto);
+
+    els.cardPanel?.classList.toggle("is-hidden", isCrypto);
+    els.cryptoPanel?.classList.toggle("is-hidden", !isCrypto);
+
+    // Switching away from crypto must not leave a watcher running in the
+    // background against a session the buyer can no longer see.
+    if (!isCrypto && session) cancelPayment();
   }
 
   els.tabSignin?.addEventListener("click", () => setAuthMode("signin"));
@@ -527,6 +579,8 @@
     renderSignedOut();
   });
 
+  els.methodCardBtn?.addEventListener("click", () => selectMethod("card"));
+  els.methodCryptoBtn?.addEventListener("click", () => selectMethod("crypto"));
   els.planMonthly?.addEventListener("click", () => selectPlan("monthly"));
   els.planYearly?.addEventListener("click", () => selectPlan("yearly"));
   els.startBtn?.addEventListener("click", () => void startPayment());
@@ -555,6 +609,11 @@
     setAuthMode("signin");
     selectPlan("monthly");
 
+    // ?method=crypto lets the landing page's "Pay with Crypto" CTA land the
+    // buyer directly on the path they clicked.
+    const wanted = new URLSearchParams(window.location.search).get("method");
+    selectMethod(wanted === "crypto" ? "crypto" : "card");
+
     const auth = await currentSession();
     if (auth?.email) renderSignedIn(auth.email);
     else renderSignedOut();
@@ -564,6 +623,7 @@
     const saved = readPersistedSession();
     if (saved && auth?.idToken) {
       session = saved;
+      selectMethod("crypto");
       selectPlan(saved.plan);
       if (els.networkSelect) els.networkSelect.value = saved.network;
       renderTerminal(saved);
