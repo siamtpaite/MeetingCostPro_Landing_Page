@@ -59,6 +59,10 @@
     signedOut: $("auth-signed-out"),
     signedIn: $("auth-signed-in"),
     signedInEmail: $("signed-in-email"),
+    verifyGate: $("verify-gate"),
+    verifyMessage: $("verify-message"),
+    verifySend: $("verify-send"),
+    verifyRecheck: $("verify-recheck"),
     tabSignin: $("tab-signin"),
     tabSignup: $("tab-signup"),
     authEmail: $("auth-email"),
@@ -91,6 +95,7 @@
   let authMode = "signin";
   let selectedPlan = "monthly";
   let selectedMethod = "card";
+  let emailVerified = false;
   let session = null;
   let pollTimer = null;
   let expiryTimer = null;
@@ -234,7 +239,60 @@
   function renderSignedOut() {
     show(els.signedOut);
     hide(els.signedIn);
+    hide(els.verifyGate);
+    emailVerified = false;
     if (els.signedInEmail) els.signedInEmail.textContent = "—";
+  }
+
+  /**
+   * Reflect the account's email_verified state. The purchase endpoints reject
+   * unverified tokens outright, so an unverified buyer must be stopped here
+   * with an explanation rather than at a 401 they cannot interpret.
+   */
+  async function refreshVerifiedState(idToken) {
+    emailVerified = await window.MeetingCostAuth.isEmailVerified(idToken);
+    els.verifyGate?.classList.toggle("is-hidden", emailVerified);
+    if (els.startBtn) els.startBtn.disabled = !emailVerified;
+    return emailVerified;
+  }
+
+  async function handleSendVerification() {
+    const auth = await currentSession();
+    if (!auth?.idToken) return;
+    els.verifySend.disabled = true;
+    els.verifySend.textContent = "Sending…";
+    try {
+      const result = await window.MeetingCostAuth.sendVerificationEmail(auth.idToken);
+      if (els.verifyMessage) {
+        els.verifyMessage.textContent = result?.success
+          ? `Confirmation link sent to ${auth.email}. Open it, then choose "I've confirmed".`
+          : result?.error || "Could not send the confirmation link.";
+        show(els.verifyMessage);
+      }
+    } finally {
+      els.verifySend.disabled = false;
+      els.verifySend.textContent = "Resend confirmation link";
+    }
+  }
+
+  async function handleRecheckVerification() {
+    els.verifyRecheck.disabled = true;
+    els.verifyRecheck.textContent = "Checking…";
+    try {
+      // The email_verified claim only exists in a token minted after
+      // confirmation, so the cached one must be replaced before re-checking.
+      const refreshed = await window.MeetingCostAuth.forceRefreshSession();
+      const ok = await refreshVerifiedState(refreshed?.idToken || "");
+      if (els.verifyMessage) {
+        els.verifyMessage.textContent = ok
+          ? "Email confirmed — you can continue."
+          : "Still not confirmed. Open the link in the email, then try again.";
+        show(els.verifyMessage);
+      }
+    } finally {
+      els.verifyRecheck.disabled = false;
+      els.verifyRecheck.textContent = "I've confirmed — continue";
+    }
   }
 
   async function currentSession() {
@@ -271,6 +329,10 @@
       }
       if (els.authPassword) els.authPassword.value = "";
       renderSignedIn(result.session.email || email.toLowerCase());
+      const verified = await refreshVerifiedState(result.session.idToken);
+      // A brand-new account is never verified, so send the link straight away
+      // rather than making the buyer hunt for the button.
+      if (!verified && authMode === "signup") await handleSendVerification();
     } finally {
       els.authSubmit.disabled = false;
       els.authSubmit.textContent = authMode === "signup" ? "Create account" : "Sign in";
@@ -351,6 +413,13 @@
     if (!auth?.idToken) {
       setError(els.startError, "Sign in above first — your license is issued to your account email.");
       renderSignedOut();
+      return;
+    }
+    if (!(await refreshVerifiedState(auth.idToken))) {
+      setError(
+        els.startError,
+        "Confirm your email address first — we can't issue a licence to an unconfirmed address."
+      );
       return;
     }
 
@@ -573,6 +642,8 @@
   els.authPassword?.addEventListener("keydown", (e) => {
     if (e.key === "Enter") void handleAuthSubmit();
   });
+  els.verifySend?.addEventListener("click", () => void handleSendVerification());
+  els.verifyRecheck?.addEventListener("click", () => void handleRecheckVerification());
   els.authSignout?.addEventListener("click", () => {
     window.MeetingCostAuth.signOut();
     cancelPayment();
@@ -615,8 +686,12 @@
     selectMethod(wanted === "crypto" ? "crypto" : "card");
 
     const auth = await currentSession();
-    if (auth?.email) renderSignedIn(auth.email);
-    else renderSignedOut();
+    if (auth?.email) {
+      renderSignedIn(auth.email);
+      await refreshVerifiedState(auth.idToken);
+    } else {
+      renderSignedOut();
+    }
 
     // Resume an in-flight checkout across a reload, so a buyer who refreshes
     // after sending funds keeps the same watch window instead of restarting it.

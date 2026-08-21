@@ -178,6 +178,66 @@
     return { success: true };
   }
 
+  /**
+   * Whether this account's email address is verified.
+   *
+   * This gates real money: api/_lib/auth.js rejects any ID token whose
+   * email_verified claim is not true, so poll-payment and
+   * register-crypto-license both 401 for an unverified account. Password signup
+   * never sets the claim, so it has to be earned explicitly.
+   */
+  async function isEmailVerified(idToken) {
+    if (!isConfigured() || !idToken) return false;
+    try {
+      const { res, data } = await post("accounts:lookup", { idToken });
+      if (!res.ok || data.error) return false;
+      return data?.users?.[0]?.emailVerified === true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  async function sendVerificationEmail(idToken) {
+    if (!isConfigured()) return { success: false, error: "Firebase is not configured." };
+    if (!idToken) return { success: false, error: "Sign in first." };
+    try {
+      const { res, data } = await post("accounts:sendOobCode", {
+        requestType: "VERIFY_EMAIL",
+        idToken,
+      });
+      if (!res.ok || data.error) return { success: false, error: mapError(data) };
+      return { success: true };
+    } catch (e) {
+      return { success: false, error: e?.message || "Could not send the verification email." };
+    }
+  }
+
+  /**
+   * Unconditionally exchange the refresh token for a new ID token.
+   * Needed after the buyer verifies: the email_verified claim only appears in a
+   * token minted after verification, so the cached one stays stale and the API
+   * keeps returning 401.
+   */
+  async function forceRefreshSession() {
+    if (!isConfigured()) return null;
+    const s = readStoredSession();
+    if (!s?.refreshToken) return null;
+    try {
+      const next = await refreshTokens(s.refreshToken);
+      const merged = {
+        ...s,
+        idToken: next.idToken,
+        refreshToken: next.refreshToken,
+        localId: next.localId || s.localId,
+        expiresAt: next.expiresAt,
+      };
+      writeSession(merged);
+      return merged;
+    } catch (_) {
+      return null;
+    }
+  }
+
   async function sendPasswordResetEmail(email) {
     if (!isConfigured()) return { success: false, error: "Firebase is not configured." };
     const normalized = String(email || "").trim().toLowerCase();
@@ -202,7 +262,10 @@
     signIn,
     signOut,
     sendPasswordResetEmail,
+    isEmailVerified,
+    sendVerificationEmail,
     ensureFreshSession,
+    forceRefreshSession,
     getStoredSession: readStoredSession,
     STORAGE_KEY,
   };

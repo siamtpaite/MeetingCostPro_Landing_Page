@@ -128,6 +128,18 @@
             </div>
             <button type="button" class="btn btn-ghost" id="auth-signout">Sign out</button>
           </div>
+
+          <div id="verify-gate" class="is-hidden">
+            <div class="callout callout-warning">
+              <span aria-hidden="true">✉</span>
+              <span><strong>Confirm your email before paying.</strong> Your licence is delivered to this address, so we send a one-click confirmation link to make sure it reaches you. Open the link, then come back and continue.</span>
+            </div>
+            <p id="verify-message" class="field-hint is-hidden" role="status"></p>
+            <div class="btn-row" style="margin-top: 14px;">
+              <button type="button" class="btn btn-primary" id="verify-send">Send confirmation link</button>
+              <button type="button" class="btn btn-ghost" id="verify-recheck">I've confirmed — continue</button>
+            </div>
+          </div>
         </div>
       </section>
 
