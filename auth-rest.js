@@ -27,6 +27,19 @@
 
   function mapError(data) {
     const msg = String(data?.error?.message || "");
+    // A spent free trial. Until the Cloud Functions change ships, the
+    // beforeUserSignedIn blocking function still refuses these accounts, so
+    // without this the buyer sees a raw BLOCKING_FUNCTION_ERROR_RESPONSE on a
+    // checkout page and has no idea the card path is still open to them.
+    if (
+      msg.includes("one-time free trial") ||
+      msg.includes("BLOCKING_FUNCTION_ERROR_RESPONSE")
+    ) {
+      return (
+        "This account's free trial has already been used, so it can't sign in yet. " +
+        "You can still buy with a card above — that needs no account, and Gumroad emails your licence key."
+      );
+    }
     if (msg.includes("EMAIL_EXISTS")) return "This email already has an account — sign in instead.";
     if (msg.includes("WEAK_PASSWORD")) return "Password should be at least 6 characters.";
     if (msg.includes("EMAIL_NOT_FOUND")) return "No account found for this email.";
