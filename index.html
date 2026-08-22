@@ -173,6 +173,22 @@
       transform: translateY(-2px);
       box-shadow: 0 0 36px rgba(74, 222, 128, 0.45), 0 8px 24px rgba(0,0,0,0.4);
     }
+    /* Card sits between the free trial and crypto: a real option, but not the one
+       being pushed. Neutral outline keeps green as the primary and amber as the
+       discount, instead of three competing filled buttons. */
+    .cta-btn.card {
+      background: transparent;
+      color: var(--text-main);
+      border-color: var(--border-bright);
+      box-shadow: none;
+    }
+    .cta-btn.card:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--text-muted);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      transform: translateY(-2px);
+    }
     .cta-btn.crypto {
       background: transparent;
       color: var(--crypto);
@@ -705,9 +721,10 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               Start the free hour — no card
             </a>
+            <a href="/purchase.html" class="cta-btn card">Buy with card — $19.99/mo</a>
             <a href="/purchase.html?method=crypto" class="cta-btn crypto">₿ Go PRO with crypto — save 20%</a>
           </div>
-          <p class="cta-note">One free hour of full PRO, one trial per email. After that: $19.99/mo by card, or <strong>$15.99/mo with stablecoins</strong> ($199.99 / $159.99 yearly). <a href="#pricing" style="color:var(--blue);text-decoration:none;">Compare all three →</a></p>
+          <p class="cta-note">One free hour of full PRO, one trial per email. Card checkout needs no account; crypto saves 20% ($159.99/yr vs $199.99). <a href="#pricing" style="color:var(--blue);text-decoration:none;">Compare all three →</a></p>
 
           <div class="platforms">
             <p>Works on every major meeting platform</p>
@@ -1297,6 +1314,7 @@
       <p>The meeting economy won't shrink—but you can make it honest: local control, live cost pressure, AI on your terms, and checkout that doesn't owe allegiance to anyone but you.</p>
       <div class="hero-ctas">
         <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer" class="cta-btn">Start the free hour →</a>
+        <a href="/purchase.html" class="cta-btn card">Buy with card — $19.99/mo</a>
         <a href="/purchase.html?method=crypto" class="cta-btn crypto">Pay with Crypto — $15.99/mo</a>
       </div>
     </section>
