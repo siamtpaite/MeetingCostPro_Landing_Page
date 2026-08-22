@@ -236,6 +236,9 @@
   }
 
   // ── Trial status ───────────────────────────────────────────────────────────
+  /** Sentinel: the trial lookup could not be completed. Distinct from "none". */
+  const LOOKUP_FAILED = Symbol("trial-lookup-failed");
+
   const FIRESTORE_DOC = (uid) =>
     `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/proLicenses/${encodeURIComponent(uid)}`;
 
@@ -272,14 +275,28 @@
    * that path does not require email_verified — which matters, because a
    * spent-trial account arriving here has usually never confirmed its address.
    */
+  /**
+   * Three outcomes, deliberately distinguished:
+   *   an object  — the document was read
+   *   null       — the account genuinely has no trial record
+   *   LOOKUP_FAILED — the read did not complete
+   *
+   * These used to collapse into a single `null`, so a failed Firestore read was
+   * indistinguishable from "never trialled" and the page showed a spent-trial
+   * buyer an offer they cannot take. A 404 is a real answer; a 500, an aborted
+   * request or an unparseable body is not.
+   */
   async function fetchTrialState(auth) {
     if (!auth?.idToken || !auth?.localId) return null;
     try {
       const res = await fetch(FIRESTORE_DOC(auth.localId), {
         headers: { Authorization: `Bearer ${auth.idToken}` },
       });
-      if (!res.ok) return null;
+      // 404 means the document does not exist — a genuine "no trial record".
+      if (res.status === 404) return null;
+      if (!res.ok) return LOOKUP_FAILED;
       const data = await res.json().catch(() => null);
+      if (!data) return LOOKUP_FAILED;
       const f = data?.fields;
       if (!f) return null;
       return {
@@ -292,11 +309,20 @@
         exhaustedPermanently: fsValue(f.trialExhaustedPermanently) === true,
       };
     } catch (_) {
-      return null;
+      // Network failure or abort — not evidence of anything about the trial.
+      return LOOKUP_FAILED;
     }
   }
 
   function renderTrialState(state) {
+    // On a failed lookup, show neither panel. Offering a free trial to someone
+    // who has just spent theirs reads as a taunt; claiming their trial is spent
+    // when we could not check would be worse.
+    if (state === LOOKUP_FAILED) {
+      els.trialSpent?.classList.add("is-hidden");
+      els.trialOffer?.classList.add("is-hidden");
+      return;
+    }
     const spent =
       !!state &&
       !state.licenseKey &&
