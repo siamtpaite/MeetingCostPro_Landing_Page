@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — MeetingCost PRO</title>
+  <meta name="description" content="Buy MeetingCost PRO by card or with stablecoins — USDT on Tron, USDC on Solana or Base. Save 20% paying with crypto." />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="meetingcost-fonts.css" />
+  <link rel="stylesheet" href="purchase.css" />
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo">MeetingCost<span class="logo-dot">.</span></a>
+    <div class="nav-links">
+      <a href="/privacy.html">Security &amp; Privacy</a>
+      <a href="/overview.html">Docs</a>
+      <a href="/terms.html">Terms</a>
+      <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+    </div>
+  </nav>
+
+  <main class="checkout-wrap">
+    <div class="checkout-head">
+      <p class="eyebrow">Checkout</p>
+      <h1>Buy MeetingCost PRO</h1>
+      <p>Pay by card through Gumroad, or send stablecoins on-chain and save 20%. Either way your license key arrives by email — paste it into the extension to unlock PRO.</p>
+    </div>
+
+    <div class="callout callout-info" id="trial-offer" style="margin-top: 0; margin-bottom: 22px;">
+      <span aria-hidden="true">💡</span>
+      <span>Only want to try it first? The <strong>free 1-hour trial</strong> is inside the extension — <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer">install it</a> and create your free account there. No payment required.</span>
+    </div>
+
+    <!-- Shown instead of the offer above once we know this account's trial is spent. -->
+    <section class="card trial-spent is-hidden" id="trial-spent" aria-labelledby="trial-spent-title">
+      <p class="trial-spent-kicker">Your free hour is used up</p>
+      <h2 class="trial-spent-title" id="trial-spent-title">Here's where it went</h2>
+
+      <div class="usage-meter" role="img" aria-label="Free trial fully used">
+        <span class="usage-meter-fill" id="usage-fill"></span>
+      </div>
+      <p class="usage-line" id="usage-line">—</p>
+
+      <dl class="usage-facts" id="usage-facts"></dl>
+
+      <p class="trial-spent-note">
+        The trial is one hour per email, once — so it can't be restarted on this address or a new account using it.
+        Pick a plan below and PRO switches straight back on; your meeting history and settings are untouched.
+      </p>
+    </section>
+
+    <!-- ── STEP 1: PAYMENT METHOD ── -->
+    <section class="card" aria-labelledby="method-title">
+      <p class="card-title" id="method-title"><span class="step-num">1</span>How do you want to pay?</p>
+
+      <div class="method-grid" role="group" aria-label="Choose a payment method">
+        <button type="button" class="method-card selected" id="method-card-btn" data-method="card" aria-pressed="true">
+          <span class="method-icon" aria-hidden="true">💳</span>
+          <span class="method-name">Card</span>
+          <span class="method-price">$19.99<span>/mo</span></span>
+          <span class="method-note">Secure checkout via Gumroad. No account needed.</span>
+        </button>
+        <button type="button" class="method-card" id="method-crypto-btn" data-method="crypto" aria-pressed="false">
+          <span class="method-badge">Save 20%</span>
+          <span class="method-icon" aria-hidden="true">₿</span>
+          <span class="method-name">Stablecoins</span>
+          <span class="method-price">$15.99<span>/mo</span></span>
+          <span class="method-note">USDT · USDC on-chain. Requires a MeetingCost account.</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── STEP 2: PLAN ── -->
+    <section class="card" aria-labelledby="plan-title">
+      <p class="card-title" id="plan-title"><span class="step-num">2</span>Choose your plan</p>
+
+      <span class="promo-badge is-hidden" id="promo-badge">20% off applied</span>
+
+      <div class="plan-grid" role="group" aria-label="Choose a plan">
+        <button type="button" class="plan-card selected" id="plan-monthly" data-plan="monthly" aria-pressed="true">
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price" id="price-monthly">$19.99</div>
+          <div class="plan-period">per month</div>
+          <div class="plan-was is-hidden" id="was-monthly">$19.99 by card</div>
+        </button>
+        <button type="button" class="plan-card" id="plan-yearly" data-plan="yearly" aria-pressed="false">
+          <div class="plan-name">Yearly</div>
+          <div class="plan-price" id="price-yearly">$199.99</div>
+          <div class="plan-period">per year</div>
+          <div class="plan-was is-hidden" id="was-yearly">$199.99 by card</div>
+        </button>
+      </div>
+    </section>
+
+    <!-- ── CARD PATH ── -->
+    <section class="card" id="card-panel" aria-labelledby="card-panel-title">
+      <p class="card-title" id="card-panel-title"><span class="step-num">3</span>Pay by card</p>
+      <p class="panel-lead">You'll be taken to Gumroad's secure checkout. Gumroad emails your license key as soon as the payment clears — no MeetingCost account required.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-primary" id="gumroad-link" href="https://siamtpaite.gumroad.com/l/xjguw" target="_blank" rel="noopener noreferrer">Continue to Gumroad</a>
+      </div>
+      <p class="field-hint">7-day refund policy on Gumroad purchases.</p>
+    </section>
+
+    <!-- ── CRYPTO PATH ── -->
+    <div id="crypto-panel" class="is-hidden">
+
+      <section class="card" aria-labelledby="account-title">
+        <p class="card-title" id="account-title"><span class="step-num">3</span>Your MeetingCost account</p>
+
+        <div id="auth-signed-out">
+          <p class="panel-lead">
+            Your license is issued to your account's email address, so we need to know who you are before the payment starts.
+            <strong>Already started the free trial in the extension?</strong> Use that same email and password.
+          </p>
+
+          <div class="auth-tabs" role="tablist">
+            <button type="button" class="auth-tab active" id="tab-signin" role="tab" aria-selected="true">I have an account</button>
+            <button type="button" class="auth-tab" id="tab-signup" role="tab" aria-selected="false">Create one now</button>
+          </div>
+
+          <label class="field-label" for="auth-email">Email</label>
+          <input type="email" id="auth-email" class="field" placeholder="you@example.com" autocomplete="email" />
+
+          <label class="field-label" for="auth-password">Password</label>
+          <input type="password" id="auth-password" class="field" placeholder="At least 6 characters" autocomplete="current-password" />
+
+          <p id="auth-error" class="field-error is-hidden" role="alert"></p>
+
+          <div class="btn-row" style="margin-top: 18px;">
+            <button type="button" class="btn btn-primary" id="auth-submit">Sign in</button>
+          </div>
+          <p class="field-hint">
+            <button type="button" class="btn-link" id="auth-reset">Forgot your password?</button>
+          </p>
+        </div>
+
+        <div id="auth-signed-in" class="is-hidden">
+          <div class="signed-in-row">
+            <div>
+              <p class="signed-in-label">Signed in as</p>
+              <span class="signed-in-email" id="signed-in-email">—</span>
+            </div>
+            <button type="button" class="btn btn-ghost" id="auth-signout">Sign out</button>
+          </div>
+
+          <div id="verify-gate" class="is-hidden">
+            <div class="callout callout-warning">
+              <span aria-hidden="true">✉</span>
+              <span><strong>Confirm your email before paying.</strong> Your licence is delivered to this address, so we send a one-click confirmation link to make sure it reaches you. Open the link, then come back and continue.</span>
+            </div>
+            <p id="verify-message" class="field-hint is-hidden" role="status"></p>
+            <div class="btn-row" style="margin-top: 14px;">
+              <button type="button" class="btn btn-primary" id="verify-send">Send confirmation link</button>
+              <button type="button" class="btn btn-ghost" id="verify-recheck">I've confirmed — continue</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="network-title">
+        <p class="card-title" id="network-title"><span class="step-num">4</span>Network &amp; payment</p>
+
+        <label class="field-label" for="network-select">Network</label>
+        <select id="network-select" class="field" aria-label="Payment network">
+          <option value="tron">Tron — USDT (TRC-20) · ~$1 network fee</option>
+          <option value="sol">Solana — USDC (SPL) · negligible fee</option>
+          <option value="base">Base — USDC · negligible fee</option>
+        </select>
+
+        <p id="start-error" class="field-error is-hidden" role="alert"></p>
+
+        <div class="btn-row" style="margin-top: 20px;">
+          <button type="button" class="btn btn-crypto" id="start-payment">Continue to payment</button>
+        </div>
+      </section>
+
+      <section class="card is-hidden" id="terminal" aria-labelledby="terminal-title">
+        <p class="card-title" id="terminal-title"><span class="step-num">5</span>Send payment</p>
+
+        <div class="terminal-summary">
+          <p class="terminal-plan" id="terminal-plan">—</p>
+          <p class="terminal-amount" id="terminal-amount">—</p>
+          <p class="terminal-note">Send this exact amount — it covers your plan and the network fee.</p>
+        </div>
+
+        <div class="qr-box" id="qr-box"></div>
+
+        <div class="copy-box">
+          <span class="copy-value" id="copy-amount-value">—</span>
+          <button type="button" class="copy-btn" id="copy-amount-btn">Copy amount</button>
+        </div>
+        <div class="copy-box">
+          <span class="copy-value" id="copy-address-value">—</span>
+          <button type="button" class="copy-btn" id="copy-address-btn">Copy address</button>
+        </div>
+
+        <div class="status-line" id="status-line">
+          <span class="status-dot"></span>
+          <span id="status-text">Watching the chain for your transfer…</span>
+        </div>
+
+        <div class="callout callout-warning">
+          <span aria-hidden="true">⚠</span>
+          <span>Send only <strong id="warn-token">USDT</strong> on the <strong id="warn-network">Tron</strong> network to this address. Sending a different asset or using a different chain will lose the funds permanently.</span>
+        </div>
+
+        <p class="field-hint" style="text-align: center;">
+          Keep this page open until the payment is detected — the watcher runs for 35 minutes.
+        </p>
+
+        <div class="btn-row" style="margin-top: 16px;">
+          <button type="button" class="btn btn-ghost" id="cancel-payment">Cancel and start over</button>
+        </div>
+      </section>
+    </div>
+
+    <p class="fine-print">
+      7-day refund policy for card purchases · 48-hour window for crypto ·
+      <a href="/terms.html#refunds">Full refund terms</a><br />
+      Already have a key? Enter it in the extension popup under <strong>Enter License Key</strong>.
+    </p>
+  </main>
+
+  <footer>
+    <p>© 2026 MeetingCost. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/privacy.html">Security &amp; Privacy</a>
+      <a href="/overview.html">Docs</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:siam_t_paite@meetingcostpro.com">Support</a>
+    </div>
+  </footer>
+
+  <script src="vendor/qrcode.min.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth-rest.js"></script>
+  <script src="network-config.js"></script>
+  <script src="purchase.js"></script>
+</body>
+</html>

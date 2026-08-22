@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+#
+# Secret-commit gate for the MeetingCost landing page.
+# Blocks a commit if any staged (added/copied/modified) file either
+#   (a) has a path that looks like a secret container, or
+#   (b) contains high-signal secret material in its staged content.
+#
+# Deletions are allowed (removing a secret is good).
+# Bypass (use only when you are certain it is a false positive):
+#   git commit --no-verify
+#
+# Portable to macOS's stock bash 3.2 — no mapfile, no arrays required.
+
+red()    { printf '\033[31m%s\033[0m\n' "$1"; }
+yellow() { printf '\033[33m%s\033[0m\n' "$1"; }
+
+fail=0
+
+# ---- (a) Path-based blocklist -------------------------------------------------
+path_is_blocked() {
+  f="$1"
+  case "$f" in
+    *.example|*.sample|*.template) return 1 ;;   # placeholders are allowed
+  esac
+  case "$f" in
+    .env|.env.*|*/.env|*/.env.*) return 0 ;;
+    *.pem|*.key|*.p12|*.pfx|*.keystore) return 0 ;;
+    *service-account*.json|*serviceaccount*.json|*-credentials*.json|*credentials.json) return 0 ;;
+  esac
+  return 1
+}
+
+# ---- (b) Content markers (deliberately narrow to avoid noise) ------------------
+content_markers='-----BEGIN [A-Z ]*PRIVATE KEY-----|"private_key":[[:space:]]*"-----BEGIN|AIza[0-9A-Za-z_-]{35}|sk-[A-Za-z0-9]{20,}|sk-ant-[A-Za-z0-9-]{20,}|re_[A-Za-z0-9]{16,}|whsec_[A-Za-z0-9]{16,}|xox[baprs]-[A-Za-z0-9-]{10,}|ghp_[A-Za-z0-9]{30,}'
+
+# ---- Content-scan allowlist ---------------------------------------------------
+# Firebase *web* config is a public client identifier, not a credential — it is
+# meant to be served to browsers and already ships inside the extension. It
+# matches the AIza... marker, so without this exception every edit to it would
+# be blocked and the habit of --no-verify would take hold, which is how a real
+# secret eventually slips through.
+#
+# This exempts ONE known path from the content scan only. The path blocklist
+# still applies, and every other file is scanned as before. Do not widen it to
+# a directory or a glob.
+content_scan_exempt() {
+  case "$1" in
+    firebase-config.js) return 0 ;;
+  esac
+  return 1
+}
+
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+
+  if path_is_blocked "$f"; then
+    red    "✖ BLOCKED (secret-looking path): $f"
+    yellow "  If this is truly not a secret, rename it to *.example or run: git commit --no-verify"
+    fail=1
+    continue
+  fi
+
+  if content_scan_exempt "$f"; then
+    yellow "• skipping content scan for known-public client config: $f"
+    continue
+  fi
+
+  # Scan the *staged* blob (not the worktree copy). -I skips binary files.
+  if git show ":$f" 2>/dev/null | grep -qIE -e "$content_markers"; then
+    red    "✖ BLOCKED (secret material in content): $f"
+    yellow "  A private key / API token pattern was found in the staged content."
+    yellow "  Remove it (use env vars) or, if it is a false positive: git commit --no-verify"
+    fail=1
+  fi
+done < <(git diff --cached --name-only --diff-filter=ACM)
+
+if [ "$fail" -ne 0 ]; then
+  echo
+  red "Commit aborted by secret-guard. No secrets should enter git history."
+  exit 1
+fi
+
+exit 0
