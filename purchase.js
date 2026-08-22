@@ -675,6 +675,19 @@
 
       const data = await res.json().catch(() => ({}));
       const licenseKey = String(data?.licenseKey || "");
+
+      // A chain lookup that could not complete is not a refusal. Keep watching
+      // rather than telling someone who has already paid that it failed.
+      if (res.status === 503 || data?.retryable === true) {
+        fulfilling = false;
+        setStatus(
+          data?.error || "Could not reach the blockchain just now — still trying. Keep this page open.",
+          "error"
+        );
+        beginWatching();
+        return;
+      }
+
       if (!res.ok || data?.ok !== true) {
         fulfilling = false;
         const detail = data?.error || `HTTP ${res.status}`;
