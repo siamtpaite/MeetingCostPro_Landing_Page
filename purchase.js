@@ -23,8 +23,12 @@
   // to the production host and CORS_ALLOW_ORIGINS holds one origin, not a list.
   const POLL_URL = "/api/poll-payment";
   const REGISTER_URL = "/api/register-crypto-license";
+  const SESSION_URL = "/api/create-payment-session";
   const PROJECT_ID = "meetingcost-auth";
 
+  // Display only. The amount actually charged is quoted by
+  // /api/create-payment-session and must match api/_lib/payment-session.js —
+  // these numbers never reach the server.
   const USD_MONTHLY = 15.99;
   const USD_YEARLY = 159.99;
   const CARD_MONTHLY = 19.99;
@@ -135,30 +139,8 @@
     return v.length > 3 && v.includes("@") && v.includes(".") && !/\s/.test(v);
   }
 
-  /**
-   * Tron TRC-20 transfers cost roughly $1 in bandwidth/energy, which is taken
-   * from the sender, not the transfer amount. Asking for base + $1 keeps the
-   * credited amount above poll-payment's MIN_PAYMENT_USD floor.
-   */
-  function allInAmount(networkLower, basePrice) {
-    return networkLower === "tron" ? basePrice + 1 : basePrice;
-  }
-
-  function basePriceForPlan(plan) {
-    return plan === "yearly" ? USD_YEARLY : USD_MONTHLY;
-  }
-
   function tokenForNetwork(networkLower) {
     return networkLower === "tron" ? "USDT" : "USDC";
-  }
-
-  function generateSovereignKey() {
-    // Same alphabet and shape as the extension's generateSovereignKey — the
-    // server validates /^[A-Z0-9]{4}(-[A-Z0-9]{4}){3}$/ and rejects anything else.
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    const segment = () =>
-      Array.from(crypto.getRandomValues(new Uint8Array(4)), (b) => chars[b % chars.length]).join("");
-    return `${segment()}-${segment()}-${segment()}-${segment()}`;
   }
 
   async function copyText(text) {
@@ -484,6 +466,11 @@
       if (!parsed || typeof parsed !== "object") return null;
       if (!parsed.startedAt || Date.now() - parsed.startedAt > SESSION_MS) return null;
       if (!NETWORK_LOWER_TO_UPPER[parsed.network]) return null;
+      // Sessions saved before the server started quoting amounts have no
+      // sessionId; resuming one would poll with an undefined id and 400 forever.
+      // Drop it and let the buyer start cleanly.
+      if (!/^[0-9a-f]{32}$/i.test(String(parsed.sessionId || ""))) return null;
+      if (parsed.expiresAt && Date.now() > Number(parsed.expiresAt)) return null;
       return parsed;
     } catch (_) {
       return null;
@@ -498,7 +485,10 @@
   function renderTerminal(record) {
     const config = window.PAYMENT_NETWORKS?.[NETWORK_LOWER_TO_UPPER[record.network]];
     const token = config?.token || tokenForNetwork(record.network);
-    const amountStr = record.amount.toFixed(2);
+    // 4 decimals: the trailing digits are the per-session identifier that ties this
+  // transfer to this buyer. Rounding them off here would make the payment
+  // unmatchable.
+  const amountStr = Number(record.amount).toFixed(4);
 
     if (els.terminalPlan) {
       els.terminalPlan.textContent = record.plan === "yearly" ? "PRO Yearly" : "PRO Monthly";
@@ -541,21 +531,47 @@
       return;
     }
 
-    const basePrice = basePriceForPlan(selectedPlan);
-    const amount = allInAmount(network, basePrice);
     const confirmMsg =
       `Confirm: your PRO license will be issued to ${auth.email}.\n\n` +
       "Crypto payments are non-refundable after the 48-hour window, so make sure this is the right account.";
     if (!window.confirm(confirmMsg)) return;
 
+    // The amount is quoted by the server, not computed here. It carries a
+    // per-session random cents offset, and that is the only thing that makes an
+    // incoming transfer attributable to this buyer — the vault address is public
+    // and every transfer to it is visible on-chain.
+    els.startBtn.disabled = true;
+    const previousLabel = els.startBtn.textContent;
+    els.startBtn.textContent = "Preparing…";
+    let quote;
+    try {
+      const res = await fetch(SESSION_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${auth.idToken}` },
+        body: JSON.stringify({ plan: selectedPlan, network: NETWORK_LOWER_TO_UPPER[network] }),
+      });
+      quote = await res.json().catch(() => ({}));
+      if (!res.ok || quote?.ok !== true) {
+        setError(els.startError, quote?.error || `Could not start checkout (HTTP ${res.status}).`);
+        return;
+      }
+    } catch (e) {
+      setError(els.startError, `Could not start checkout: ${e?.message || "network error"}.`);
+      return;
+    } finally {
+      els.startBtn.disabled = false;
+      els.startBtn.textContent = previousLabel;
+    }
+
     session = {
-      plan: selectedPlan,
+      sessionId: quote.sessionId,
+      plan: quote.plan,
       network,
-      vault,
-      amount,
-      basePrice,
+      vault: quote.vaultAddress || vault,
+      amount: Number(quote.expectedAmount),
       email: auth.email,
       startedAt: Date.now(),
+      expiresAt: Number(quote.expiresAt),
     };
     persistSession(session);
     renderTerminal(session);
@@ -601,13 +617,13 @@
           Authorization: `Bearer ${auth.idToken}`,
         },
         body: JSON.stringify({
+          sessionId: session.sessionId,
           network: NETWORK_LOWER_TO_UPPER[session.network],
           vaultAddress: session.vault,
           contractAddress: null,
-          // Scoped to this checkout session (minus clock skew) rather than a
-          // broad lookback: a wider window can surface another buyer's transfer
-          // to the same vault, which register-crypto-license would then reject
-          // with a 409 replay-lock error for whoever submits second.
+          // Narrow window as well as the session filter. The server only reports
+          // a transfer matching this session's unique amount, so another buyer's
+          // payment can no longer surface here at all.
           sinceMs: session.startedAt - CLOCK_SKEW_MS,
           limit: 10,
         }),
@@ -644,25 +660,21 @@
   }
 
   async function fulfill(txHash, idToken) {
-    const licenseKey = generateSovereignKey();
     try {
+      // Plan, price and licence key all come from the server-held session now.
+      // Sending them from here is what allowed paying one plan's price and
+      // claiming another, and let the caller choose the licence key.
       const res = await fetch(REGISTER_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${idToken}`,
         },
-        body: JSON.stringify({
-          email: session.email,
-          licenseKey,
-          plan: session.plan,
-          txHash,
-          paymentMethod: "crypto",
-          network: NETWORK_LOWER_TO_UPPER[session.network],
-        }),
+        body: JSON.stringify({ sessionId: session.sessionId, txHash }),
       });
 
       const data = await res.json().catch(() => ({}));
+      const licenseKey = String(data?.licenseKey || "");
       if (!res.ok || data?.ok !== true) {
         fulfilling = false;
         const detail = data?.error || `HTTP ${res.status}`;
@@ -768,7 +780,7 @@
   els.copyAmountBtn?.addEventListener("click", async () => {
     if (!session) return;
     try {
-      await copyText(session.amount.toFixed(2));
+      await copyText(Number(session.amount).toFixed(4));
       flashCopied(els.copyAmountBtn);
     } catch (_) { /* clipboard denied — the value is visible on screen anyway */ }
   });
