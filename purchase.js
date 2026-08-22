@@ -23,6 +23,7 @@
   // to the production host and CORS_ALLOW_ORIGINS holds one origin, not a list.
   const POLL_URL = "/api/poll-payment";
   const REGISTER_URL = "/api/register-crypto-license";
+  const PROJECT_ID = "meetingcost-auth";
 
   const USD_MONTHLY = 15.99;
   const USD_YEARLY = 159.99;
@@ -46,6 +47,11 @@
 
   // ── Element handles ────────────────────────────────────────────────────────
   const els = {
+    trialOffer: $("trial-offer"),
+    trialSpent: $("trial-spent"),
+    usageFill: $("usage-fill"),
+    usageLine: $("usage-line"),
+    usageFacts: $("usage-facts"),
     methodCardBtn: $("method-card-btn"),
     methodCryptoBtn: $("method-crypto-btn"),
     cardPanel: $("card-panel"),
@@ -240,8 +246,109 @@
     show(els.signedOut);
     hide(els.signedIn);
     hide(els.verifyGate);
+    // Trial state belongs to whoever just signed out, so drop it with them.
+    hide(els.trialSpent);
+    show(els.trialOffer);
     emailVerified = false;
     if (els.signedInEmail) els.signedInEmail.textContent = "—";
+  }
+
+  // ── Trial status ───────────────────────────────────────────────────────────
+  const FIRESTORE_DOC = (uid) =>
+    `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/proLicenses/${encodeURIComponent(uid)}`;
+
+  /** Unwrap one Firestore REST typed value into a plain JS value. */
+  function fsValue(field) {
+    if (!field || typeof field !== "object") return null;
+    if ("stringValue" in field) return field.stringValue;
+    if ("integerValue" in field) return Number(field.integerValue);
+    if ("booleanValue" in field) return field.booleanValue;
+    if ("doubleValue" in field) return Number(field.doubleValue);
+    return null;
+  }
+
+  function formatDate(iso) {
+    const t = Date.parse(String(iso || ""));
+    if (!Number.isFinite(t)) return null;
+    return new Date(t).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
+
+  function formatMinutes(ms) {
+    const mins = Math.round(Number(ms || 0) / 60000);
+    return `${mins} minute${mins === 1 ? "" : "s"}`;
+  }
+
+  /**
+   * Read this account's own proLicenses doc.
+   *
+   * Straight to Firestore rather than through /api: firestore.rules already lets
+   * a user read proLicenses/{their own uid}, and unlike the purchase endpoints
+   * that path does not require email_verified — which matters, because a
+   * spent-trial account arriving here has usually never confirmed its address.
+   */
+  async function fetchTrialState(auth) {
+    if (!auth?.idToken || !auth?.localId) return null;
+    try {
+      const res = await fetch(FIRESTORE_DOC(auth.localId), {
+        headers: { Authorization: `Bearer ${auth.idToken}` },
+      });
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => null);
+      const f = data?.fields;
+      if (!f) return null;
+      return {
+        licenseKey: String(fsValue(f.licenseKey) || "").trim(),
+        status: String(fsValue(f.trialStatus) || "").toLowerCase(),
+        limitMs: fsValue(f.trialLimitMs) || 3600000,
+        consumedMs: fsValue(f.trialConsumedMs) || 0,
+        startedAt: fsValue(f.trialStartedAt),
+        exhaustedAt: fsValue(f.trialExhaustedAt),
+        exhaustedPermanently: fsValue(f.trialExhaustedPermanently) === true,
+      };
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function renderTrialState(state) {
+    const spent =
+      !!state &&
+      !state.licenseKey &&
+      (state.status === "exhausted" || state.exhaustedPermanently === true);
+
+    els.trialSpent?.classList.toggle("is-hidden", !spent);
+    // Offering a trial to someone who just used theirs reads as a taunt.
+    els.trialOffer?.classList.toggle("is-hidden", spent);
+    if (!spent) return;
+
+    const used = Math.min(Number(state.consumedMs) || 0, Number(state.limitMs) || 0);
+    if (els.usageFill) {
+      const pct = state.limitMs ? Math.min(100, (used / state.limitMs) * 100) : 100;
+      els.usageFill.style.width = `${pct}%`;
+    }
+    if (els.usageLine) {
+      els.usageLine.textContent = `${formatMinutes(used)} of ${formatMinutes(state.limitMs)} used`;
+    }
+
+    if (els.usageFacts) {
+      const rows = [
+        ["Trial started", formatDate(state.startedAt)],
+        ["Hour ran out", formatDate(state.exhaustedAt)],
+        ["Counted as", "Time the cost tracker was actually running"],
+      ].filter(([, v]) => v);
+      els.usageFacts.innerHTML = "";
+      for (const [label, value] of rows) {
+        const dt = document.createElement("dt");
+        dt.textContent = label;
+        const dd = document.createElement("dd");
+        dd.textContent = value;
+        els.usageFacts.append(dt, dd);
+      }
+    }
   }
 
   /**
@@ -329,6 +436,7 @@
       }
       if (els.authPassword) els.authPassword.value = "";
       renderSignedIn(result.session.email || email.toLowerCase());
+      renderTrialState(await fetchTrialState(result.session));
       const verified = await refreshVerifiedState(result.session.idToken);
       // A brand-new account is never verified, so send the link straight away
       // rather than making the buyer hunt for the button.
@@ -688,6 +796,7 @@
     const auth = await currentSession();
     if (auth?.email) {
       renderSignedIn(auth.email);
+      renderTrialState(await fetchTrialState(auth));
       await refreshVerifiedState(auth.idToken);
     } else {
       renderSignedOut();

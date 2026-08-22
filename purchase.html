@@ -28,10 +28,28 @@
       <p>Pay by card through Gumroad, or send stablecoins on-chain and save 20%. Either way your license key arrives by email — paste it into the extension to unlock PRO.</p>
     </div>
 
-    <div class="callout callout-info" style="margin-top: 0; margin-bottom: 22px;">
+    <div class="callout callout-info" id="trial-offer" style="margin-top: 0; margin-bottom: 22px;">
       <span aria-hidden="true">💡</span>
       <span>Only want to try it first? The <strong>free 1-hour trial</strong> is inside the extension — <a href="https://chromewebstore.google.com/detail/meetingcost/afpbfdahhacahcbkfmpmbimnnecflngn" target="_blank" rel="noopener noreferrer">install it</a> and create your free account there. No payment required.</span>
     </div>
+
+    <!-- Shown instead of the offer above once we know this account's trial is spent. -->
+    <section class="card trial-spent is-hidden" id="trial-spent" aria-labelledby="trial-spent-title">
+      <p class="trial-spent-kicker">Your free hour is used up</p>
+      <h2 class="trial-spent-title" id="trial-spent-title">Here's where it went</h2>
+
+      <div class="usage-meter" role="img" aria-label="Free trial fully used">
+        <span class="usage-meter-fill" id="usage-fill"></span>
+      </div>
+      <p class="usage-line" id="usage-line">—</p>
+
+      <dl class="usage-facts" id="usage-facts"></dl>
+
+      <p class="trial-spent-note">
+        The trial is one hour per email, once — so it can't be restarted on this address or a new account using it.
+        Pick a plan below and PRO switches straight back on; your meeting history and settings are untouched.
+      </p>
+    </section>
 
     <!-- ── STEP 1: PAYMENT METHOD ── -->
     <section class="card" aria-labelledby="method-title">

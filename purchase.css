@@ -280,6 +280,54 @@ select.field {
   margin: 0 0 3px;
 }
 
+/* ── SPENT-TRIAL EXPLAINER ── */
+.trial-spent {
+  border-color: rgba(251, 146, 60, 0.35);
+  background: linear-gradient(180deg, rgba(251, 146, 60, 0.06), transparent 60%), var(--bg-card);
+}
+.trial-spent-kicker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-orange, #fb923c);
+  margin: 0 0 6px;
+}
+.trial-spent-title { font-size: 1.35rem; font-weight: 800; margin: 0 0 18px; letter-spacing: -0.4px; }
+
+.usage-meter {
+  display: block;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.usage-meter-fill {
+  display: block;
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fb923c, #f59e0b);
+}
+.usage-line { font-size: 0.9rem; color: var(--text-main); margin: 0 0 18px; font-weight: 600; }
+
+.usage-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 7px 18px;
+  margin: 0 0 18px;
+  font-size: 0.86rem;
+}
+.usage-facts dt { color: var(--text-muted); }
+.usage-facts dd { margin: 0; color: var(--text-main); }
+.trial-spent-note { font-size: 0.86rem; color: var(--text-muted); margin: 0; }
+
+@media (max-width: 680px) {
+  .usage-facts { grid-template-columns: 1fr; gap: 2px 0; }
+  .usage-facts dd { margin-bottom: 8px; }
+}
+
 /* ── PAYMENT METHOD PICKER ── */
 .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .method-card {
